@@ -1,641 +1,361 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maytay Finance — Personal Finance for Mac, iPhone & iPad</title>
-  <meta name="description" content="Take control of your money with Maytay Finance. Track expenses, manage accounts, set budgets, and reach financial goals. 100% private — all data stays on your device.">
+  <title>Maytay Finance — Tu dinero. Tu plan. Tu futuro.</title>
+  <meta name="description" content="App de finanzas personales para iPhone, iPad y Mac. Controla gastos, establece metas y alcanza tu libertad financiera. 100% privado.">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --green: #2D6A4F;
-      --green-light: #40916C;
-      --green-pale: #B7DFCC;
-      --cream: #F7F3EC;
-      --cream-dark: #E8E2D9;
-      --gold: #C5A028;
-      --gold-pale: #F3E5B0;
-      --text-dark: #1A2E22;
-      --text-mid: #4A5E52;
-      --text-light: #7A9282;
-      --white: #FFFFFF;
+      --bg: #080C18; --bg2: #0D1526; --bg3: #111D33;
+      --border: rgba(255,255,255,0.08);
+      --green: #40916C; --green-bright: #52B788; --green-glow: rgba(64,145,108,0.2);
+      --gold: #C5A028; --gold-glow: rgba(197,160,40,0.15);
+      --text: #FFFFFF; --text-muted: rgba(255,255,255,0.6); --text-dim: rgba(255,255,255,0.35);
     }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--cream);
-      color: var(--text-dark);
-      line-height: 1.6;
-    }
-
-    /* NAV */
-    nav {
-      background: var(--white);
-      border-bottom: 1px solid var(--cream-dark);
-      padding: 0 2rem;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .nav-logo {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--green);
-      text-decoration: none;
-    }
-
-    .nav-download {
-      background: var(--green);
-      color: var(--white);
-      text-decoration: none;
-      padding: 0.5rem 1.2rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: background 0.2s;
-    }
-
-    .nav-download:hover { background: var(--green-light); }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(8,12,24,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); height: 68px; display: flex; align-items: center; padding: 0 2rem; gap: 1rem; }
+    .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+    .logo-icon { width: 36px; height: 36px; border-radius: 9px; background: linear-gradient(135deg, var(--green), #2D6A4F); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 800; color: white; }
+    .logo-text { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+    .nav-links { display: flex; align-items: center; gap: 0.2rem; list-style: none; margin-left: auto; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.88rem; padding: 0.4rem 0.8rem; border-radius: 8px; transition: color 0.2s, background 0.2s; }
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+    .nav-cta { background: var(--green) !important; color: white !important; font-weight: 600 !important; margin-left: 0.5rem; }
+    .nav-cta:hover { background: var(--green-bright) !important; }
 
     /* HERO */
-    .hero {
-      background: linear-gradient(160deg, var(--green) 0%, #1B4332 100%);
-      color: var(--white);
-      padding: 5rem 2rem 4rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(183,223,204,0.12) 0%, transparent 70%);
-      top: -100px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .hero-app-icon {
-      width: 100px;
-      height: 100px;
-      border-radius: 24px;
-      background: linear-gradient(135deg, var(--green-light), #52B788);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      margin: 0 auto 1.5rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-      position: relative;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 800;
-      letter-spacing: -1.5px;
-      line-height: 1.1;
-      margin-bottom: 1rem;
-    }
-
-    .hero-tagline {
-      font-size: 1.2rem;
-      opacity: 0.85;
-      max-width: 500px;
-      margin: 0 auto 2.5rem;
-    }
-
-    .hero-badges {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-
-    .store-badge {
-      display: inline-block;
-      transition: opacity 0.2s, transform 0.2s;
-    }
-
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 7rem 2rem 5rem; max-width: 1200px; margin: 0 auto; gap: 4rem; }
+    .hero-content { flex: 1; }
+    .hero-label { font-size: 0.78rem; font-weight: 700; color: var(--green-bright); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+    .hero h1 { font-size: clamp(2.8rem, 6vw, 4.2rem); font-weight: 800; line-height: 1.08; letter-spacing: -2px; margin-bottom: 1.2rem; }
+    .hero h1 .accent { color: var(--green-bright); display: block; }
+    .hero-desc { color: var(--text-muted); font-size: 1.05rem; max-width: 480px; margin-bottom: 2.5rem; line-height: 1.7; }
+    .store-badges { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .store-badge { display: inline-block; transition: opacity 0.2s, transform 0.15s; }
     .store-badge:hover { opacity: 0.85; transform: scale(1.03); }
+    .store-badge img { height: 44px; display: block; }
+    .hero-note { font-size: 0.82rem; color: var(--text-dim); }
 
-    .store-badge img {
-      height: 44px;
-      display: block;
-    }
+    /* HERO PHONE MOCKUP */
+    .hero-visual { flex: 0 0 280px; display: flex; justify-content: center; align-items: center; position: relative; }
+    .glow-orb { position: absolute; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%); pointer-events: none; }
+    .phone-frame { width: 220px; background: var(--bg2); border-radius: 30px; border: 1.5px solid var(--border); overflow: hidden; box-shadow: 0 30px 70px rgba(0,0,0,0.7); position: relative; z-index: 2; }
+    .ph-status { background: var(--bg3); height: 36px; display: flex; align-items: center; justify-content: space-between; padding: 0 1rem; border-bottom: 1px solid var(--border); }
+    .ph-time { font-size: 0.7rem; font-weight: 700; }
+    .ph-icons { font-size: 0.65rem; color: var(--text-muted); }
+    .ph-app { padding: 1rem; }
+    .ph-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .ph-app-name { font-size: 0.75rem; font-weight: 700; color: var(--green-bright); }
+    .ph-greeting { font-size: 0.65rem; color: var(--text-dim); }
+    .ph-total-label { font-size: 0.6rem; color: var(--text-dim); margin-bottom: 0.2rem; }
+    .ph-total { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.1rem; }
+    .ph-change { font-size: 0.62rem; color: #4ADE80; margin-bottom: 1rem; }
+    .ph-chart { height: 55px; margin-bottom: 1rem; }
+    .ph-section-title { font-size: 0.62rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+    .ph-account { display: flex; align-items: center; padding: 0.4rem 0.5rem; background: rgba(255,255,255,0.04); border-radius: 8px; margin-bottom: 0.3rem; }
+    .ph-acc-dot { width: 7px; height: 7px; border-radius: 50%; margin-right: 0.5rem; flex-shrink: 0; }
+    .ph-acc-name { font-size: 0.65rem; color: var(--text-muted); flex: 1; }
+    .ph-acc-val { font-size: 0.65rem; font-weight: 600; }
+    .ph-nav { display: flex; justify-content: space-around; padding: 0.7rem 0.5rem 0.5rem; border-top: 1px solid var(--border); margin-top: 0.5rem; }
+    .ph-nav-item { font-size: 1.1rem; opacity: 0.4; }
+    .ph-nav-item.active { opacity: 1; }
 
-    .hero-platforms {
-      font-size: 0.85rem;
-      opacity: 0.6;
-    }
+    .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
 
-    /* STATS BAR */
-    .stats-bar {
-      background: var(--white);
-      border-bottom: 1px solid var(--cream-dark);
-      padding: 1.5rem 2rem;
-    }
-
-    .stats-inner {
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-    }
-
-    .stat {
-      text-align: center;
-    }
-
-    .stat-value {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--green);
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      color: var(--text-light);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
+    /* STATS */
+    .stats-strip { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-val { font-size: 2rem; font-weight: 800; color: var(--green-bright); }
+    .stat-lbl { font-size: 0.78rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
 
     /* FEATURES */
-    .features-section {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-    }
+    .section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+    .section-label { font-size: 0.78rem; font-weight: 700; color: var(--green-bright); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+    .section-sub { color: var(--text-muted); font-size: 1rem; margin-bottom: 3rem; }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+    .feat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 1.8rem; transition: border-color 0.2s; }
+    .feat-card:hover { border-color: rgba(64,145,108,0.3); }
+    .feat-icon { width: 44px; height: 44px; border-radius: 11px; background: var(--green-glow); border: 1px solid rgba(64,145,108,0.25); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1rem; }
+    .feat-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .feat-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
 
-    .section-label {
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--green);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.5rem;
-    }
-
-    .section-title {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      font-weight: 800;
-      color: var(--text-dark);
-      line-height: 1.2;
-      margin-bottom: 0.75rem;
-    }
-
-    .section-subtitle {
-      font-size: 1.05rem;
-      color: var(--text-mid);
-      max-width: 500px;
-      margin-bottom: 3rem;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .feature-card {
-      background: var(--white);
-      border-radius: 16px;
-      padding: 1.8rem;
-      border: 1px solid var(--cream-dark);
-    }
-
-    .feature-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: var(--green-pale);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      margin-bottom: 1rem;
-    }
-
-    .feature-card h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 0.4rem;
-    }
-
-    .feature-card p {
-      font-size: 0.9rem;
-      color: var(--text-mid);
-      line-height: 1.5;
-    }
-
-    /* PRIVACY HIGHLIGHT */
-    .privacy-section {
-      background: var(--text-dark);
-      color: var(--white);
-      padding: 5rem 2rem;
-      text-align: center;
-    }
-
-    .privacy-icon {
-      font-size: 3rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .privacy-section h2 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 800;
-      margin-bottom: 1rem;
-      letter-spacing: -0.5px;
-    }
-
-    .privacy-section p {
-      font-size: 1.05rem;
-      opacity: 0.75;
-      max-width: 560px;
-      margin: 0 auto;
-    }
+    /* PRIVACY BANNER */
+    .privacy-banner { background: linear-gradient(135deg, #0A1A12, #0D2018); border-top: 1px solid rgba(64,145,108,0.2); border-bottom: 1px solid rgba(64,145,108,0.2); padding: 5rem 2rem; text-align: center; }
+    .privacy-banner .lock { font-size: 3rem; margin-bottom: 1rem; }
+    .privacy-banner h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1rem; }
+    .privacy-banner h2 .green { color: var(--green-bright); }
+    .privacy-banner p { color: var(--text-muted); font-size: 1rem; max-width: 520px; margin: 0 auto; line-height: 1.7; }
 
     /* PRICING */
-    .pricing-section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-    }
-
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-
-    .pricing-card {
-      background: var(--white);
-      border-radius: 20px;
-      padding: 2rem;
-      border: 1px solid var(--cream-dark);
-      position: relative;
-    }
-
-    .pricing-card.featured {
-      border: 2px solid var(--green);
-    }
-
-    .pricing-badge {
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--green);
-      color: var(--white);
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 0.25rem 0.8rem;
-      border-radius: 20px;
-      white-space: nowrap;
-    }
-
-    .pricing-card h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 0.5rem;
-    }
-
-    .pricing-price {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--green);
-      margin-bottom: 0.2rem;
-    }
-
-    .pricing-price span {
-      font-size: 1rem;
-      font-weight: 400;
-      color: var(--text-light);
-    }
-
-    .pricing-period {
-      font-size: 0.85rem;
-      color: var(--text-light);
-      margin-bottom: 1.5rem;
-    }
-
-    .pricing-features {
-      list-style: none;
-      margin-bottom: 1.5rem;
-    }
-
-    .pricing-features li {
-      font-size: 0.9rem;
-      color: var(--text-mid);
-      padding: 0.4rem 0;
-      border-bottom: 1px solid var(--cream-dark);
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .pricing-features li:last-child { border-bottom: none; }
-
-    .check { color: var(--green); font-weight: 700; }
-    .dash { color: var(--text-light); }
-
-    .pricing-cta {
-      display: block;
-      text-align: center;
-      padding: 0.75rem;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .pricing-cta.primary {
-      background: var(--green);
-      color: var(--white);
-    }
-
-    .pricing-cta.primary:hover { background: var(--green-light); }
-
-    .pricing-cta.secondary {
-      border: 1.5px solid var(--cream-dark);
-      color: var(--text-mid);
-    }
-
-    .pricing-cta.secondary:hover { border-color: var(--green); color: var(--green); }
-
-    /* SAVINGS CALLOUT */
-    .savings-note {
-      text-align: center;
-      margin-top: 1.5rem;
-      font-size: 0.9rem;
-      color: var(--text-light);
-    }
-
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+    .price-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 2rem; position: relative; }
+    .price-card.featured { border-color: var(--green); background: linear-gradient(160deg, #0A1A12, var(--bg2)); }
+    .price-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--green); color: white; font-size: 0.72rem; font-weight: 700; padding: 0.25rem 0.9rem; border-radius: 20px; white-space: nowrap; }
+    .price-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.8rem; }
+    .price-amount { font-size: 2.4rem; font-weight: 800; color: var(--green-bright); }
+    .price-amount span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
+    .price-period { font-size: 0.82rem; color: var(--text-dim); margin: 0.2rem 0 1.5rem; }
+    .price-features { list-style: none; margin-bottom: 1.8rem; }
+    .price-features li { font-size: 0.88rem; color: var(--text-muted); padding: 0.4rem 0; border-bottom: 1px solid var(--border); display: flex; gap: 0.5rem; align-items: baseline; }
+    .price-features li:last-child { border-bottom: none; }
+    .check { color: var(--green-bright); }
+    .x { color: var(--text-dim); }
+    .price-cta { display: block; text-align: center; padding: 0.75rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.2s; }
+    .price-cta-primary { background: var(--green); color: white; }
+    .price-cta-primary:hover { background: var(--green-bright); }
+    .price-cta-ghost { border: 1px solid var(--border); color: var(--text-muted); }
+    .price-cta-ghost:hover { border-color: rgba(255,255,255,0.2); color: white; }
+    .savings-note { text-align: center; margin-top: 1.5rem; font-size: 0.88rem; color: var(--text-dim); }
     .savings-note strong { color: var(--gold); }
 
-    /* DOWNLOAD CTA */
-    .cta-section {
-      background: linear-gradient(135deg, var(--green) 0%, var(--green-light) 100%);
-      color: var(--white);
-      text-align: center;
-      padding: 5rem 2rem;
+    /* BOTTOM CTA */
+    .bottom-cta { background: linear-gradient(135deg, #0A1A12, #0D2018); border-top: 1px solid rgba(64,145,108,0.2); padding: 5rem 2rem; }
+    .bottom-cta-inner { max-width: 700px; margin: 0 auto; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+    .cta-rocket { font-size: 3rem; flex-shrink: 0; }
+    .cta-text h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.4rem; }
+    .cta-text p { font-size: 0.9rem; color: var(--text-muted); }
+    .cta-badges { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.2rem; }
+
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
+    footer p { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+    footer a { color: var(--text-muted); text-decoration: none; margin: 0 0.7rem; font-size: 0.85rem; }
+    footer a:hover { color: white; }
+
+    @media (max-width: 768px) {
+      .hero { flex-direction: column; padding-top: 6rem; }
+      .hero-visual { display: none; }
+      .stats-strip { gap: 2rem; }
+      .bottom-cta-inner { flex-direction: column; text-align: center; }
     }
-
-    .cta-section h2 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 1rem;
-    }
-
-    .cta-section p {
-      font-size: 1.1rem;
-      opacity: 0.85;
-      margin-bottom: 2.5rem;
-    }
-
-    .cta-badges {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    /* FOOTER */
-    footer {
-      background: var(--white);
-      border-top: 1px solid var(--cream-dark);
-      padding: 2.5rem 2rem;
-      text-align: center;
-    }
-
-    footer p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 0.5rem; }
-
-    footer a {
-      color: var(--text-mid);
-      text-decoration: none;
-      margin: 0 0.8rem;
-      font-size: 0.9rem;
-    }
-
-    footer a:hover { color: var(--green); }
-
-    @media (max-width: 600px) {
-      .hero { padding: 3rem 1.5rem; }
-      .stats-inner { gap: 1.5rem; }
-      .features-section, .pricing-section { padding: 3rem 1.5rem; }
+    @media (max-width: 500px) {
+      .nav-links li:not(:last-child) { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <a href="index.html" class="nav-logo">MT Software</a>
-    <a href="https://apps.apple.com/app/id6772658395" class="nav-download">Download Free</a>
-  </nav>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">MT</div>
+    <span class="logo-text">Software</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#caracteristicas">Características</a></li>
+    <li><a href="#precios">Precios</a></li>
+    <li><a href="https://apps.apple.com/app/id6772658395" class="nav-cta">Descargar ahora</a></li>
+  </ul>
+</nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-app-icon">📊</div>
-    <h1>Maytay Finance</h1>
-    <p class="hero-tagline">Your money, your rules. Track expenses, set budgets, and reach your goals — all 100% private.</p>
-    <div class="hero-badges">
+<!-- HERO -->
+<section>
+<div class="hero">
+  <div class="hero-content">
+    <p class="hero-label">Maytay Finance</p>
+    <h1>Tu dinero. Tu plan.<span class="accent">Tu futuro.</span></h1>
+    <p class="hero-desc">Maytay Finance es la app de finanzas personales que te ayuda a tomar el control de tu dinero, planificar tus metas y construir tu libertad financiera.</p>
+    <div class="store-badges">
       <a href="https://apps.apple.com/app/id6772658395" class="store-badge">
-        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Descargar en el App Store">
       </a>
       <a href="https://apps.apple.com/app/id6772658395" class="store-badge">
-        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-mac-app-store.svg" alt="Download on the Mac App Store">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-mac-app-store.svg" alt="Descargar en el Mac App Store">
       </a>
     </div>
-    <p class="hero-platforms">Available for iPhone · iPad · Mac — Free to start</p>
-  </section>
-
-  <!-- STATS BAR -->
-  <div class="stats-bar">
-    <div class="stats-inner">
-      <div class="stat">
-        <div class="stat-value">100%</div>
-        <div class="stat-label">Private</div>
+    <p class="hero-note">Gratis para comenzar · iPhone · iPad · Mac · Sin cuenta requerida</p>
+  </div>
+  <div class="hero-visual">
+    <div class="glow-orb"></div>
+    <div class="phone-frame">
+      <div class="ph-status">
+        <span class="ph-time">9:41</span>
+        <span class="ph-icons">▲▲▲ 🔋</span>
       </div>
-      <div class="stat">
-        <div class="stat-value">0</div>
-        <div class="stat-label">Data Collected</div>
-      </div>
-      <div class="stat">
-        <div class="stat-value">3</div>
-        <div class="stat-label">Platforms</div>
-      </div>
-      <div class="stat">
-        <div class="stat-value">Free</div>
-        <div class="stat-label">To Start</div>
+      <div class="ph-app">
+        <div class="ph-header">
+          <span class="ph-app-name">MAYTAY FINANCE</span>
+          <span class="ph-greeting">Hola, Mario 👋</span>
+        </div>
+        <div class="ph-total-label">Saldo total</div>
+        <div class="ph-total">$12,540.50</div>
+        <div class="ph-change">↑ +4.7% este mes</div>
+        <div class="ph-chart">
+          <svg width="100%" height="55" viewBox="0 0 190 55" preserveAspectRatio="none">
+            <defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#40916C" stop-opacity="0.4"/><stop offset="100%" stop-color="#40916C" stop-opacity="0"/></linearGradient></defs>
+            <path d="M0,42 C25,40 40,32 60,26 C80,20 95,34 115,19 C135,8 150,15 170,9 C180,6 185,5 190,2" fill="none" stroke="#52B788" stroke-width="2"/>
+            <path d="M0,42 C25,40 40,32 60,26 C80,20 95,34 115,19 C135,8 150,15 170,9 C180,6 185,5 190,2 L190,55 L0,55Z" fill="url(#pg)"/>
+          </svg>
+        </div>
+        <div class="ph-section-title">Cuentas</div>
+        <div class="ph-account"><div class="ph-acc-dot" style="background:#40916C"></div><span class="ph-acc-name">Efectivo</span><span class="ph-acc-val">$4,250.00</span></div>
+        <div class="ph-account"><div class="ph-acc-dot" style="background:#3B82F6"></div><span class="ph-acc-name">Banco</span><span class="ph-acc-val">$5,750.50</span></div>
+        <div class="ph-account"><div class="ph-acc-dot" style="background:#C5A028"></div><span class="ph-acc-name">Ahorros</span><span class="ph-acc-val">$2,540.00</span></div>
+        <div class="ph-nav">
+          <span class="ph-nav-item active">🏠</span>
+          <span class="ph-nav-item">💳</span>
+          <span class="ph-nav-item">📊</span>
+          <span class="ph-nav-item">🎯</span>
+          <span class="ph-nav-item">⚙️</span>
+        </div>
       </div>
     </div>
   </div>
+</div>
+</section>
 
-  <!-- FEATURES -->
-  <section class="features-section">
-    <p class="section-label">Features</p>
-    <h2 class="section-title">Everything you need to manage your money</h2>
-    <p class="section-subtitle">No spreadsheets. No complexity. Just a clear picture of where your money goes.</p>
+<div class="divider"></div>
 
-    <div class="features-grid">
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat-item"><div class="stat-val">100%</div><div class="stat-lbl">Privado</div></div>
+  <div class="stat-item"><div class="stat-val">0</div><div class="stat-lbl">Datos recopilados</div></div>
+  <div class="stat-item"><div class="stat-val">3</div><div class="stat-lbl">Plataformas</div></div>
+  <div class="stat-item"><div class="stat-val">Gratis</div><div class="stat-lbl">Para comenzar</div></div>
+</div>
 
-      <div class="feature-card">
-        <div class="feature-icon">🏦</div>
-        <h3>Multiple Accounts</h3>
-        <p>Track all your accounts in one place — checking, savings, credit cards, cash, and more.</p>
-      </div>
+<div class="divider"></div>
 
-      <div class="feature-card">
-        <div class="feature-icon">🗂️</div>
-        <h3>Smart Categories</h3>
-        <p>Organize expenses with fully customizable categories. See exactly where every dollar goes.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">🎯</div>
-        <h3>Financial Goals</h3>
-        <p>Set a savings target, track progress visually, and celebrate when you hit your goals.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">🌐</div>
-        <h3>Life Areas</h3>
-        <p>Keep personal, business, and family finances cleanly separated — all in the same app.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">🧾</div>
-        <h3>Receipt Capture</h3>
-        <p>Snap a photo of your receipts and attach them to transactions. Your records, always handy.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">📋</div>
-        <h3>Schedule C Ready</h3>
-        <p>Running a business? Tag categories by IRS Schedule C line and simplify tax time.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">🌙</div>
-        <h3>Dark Mode</h3>
-        <p>Follows your system settings automatically. Looks great day or night.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">📱</div>
-        <h3>iPhone, iPad & Mac</h3>
-        <p>One purchase works across all your Apple devices. Native experience on every platform.</p>
-      </div>
-
+<!-- FEATURES -->
+<section class="section" id="caracteristicas">
+  <p class="section-label">Características principales</p>
+  <h2 class="section-title">Todo lo que necesitas para gestionar<br>tu dinero de forma inteligente.</h2>
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon">💳</div>
+      <h3>Control de gastos</h3>
+      <p>Registra y categoriza tus gastos automáticamente. Conoce a dónde va tu dinero en tiempo real.</p>
     </div>
-  </section>
-
-  <!-- PRIVACY -->
-  <section class="privacy-section">
-    <div class="privacy-icon">🔒</div>
-    <h2>Your data never leaves your device.</h2>
-    <p>Maytay Finance stores everything locally on your iPhone, iPad, or Mac. No accounts to create, no servers to trust, no subscriptions to a cloud platform. Just your data, on your device.</p>
-  </section>
-
-  <!-- PRICING -->
-  <section class="pricing-section">
-    <p class="section-label">Pricing</p>
-    <h2 class="section-title">Start free. Upgrade when ready.</h2>
-    <p class="section-subtitle">No payment required to get started. Unlock everything for less than a coffee per month.</p>
-
-    <div class="pricing-grid">
-
-      <div class="pricing-card">
-        <h3>Free</h3>
-        <div class="pricing-price">$0</div>
-        <p class="pricing-period">Forever free</p>
-        <ul class="pricing-features">
-          <li><span class="check">✓</span> 1 life area</li>
-          <li><span class="check">✓</span> Unlimited transactions</li>
-          <li><span class="check">✓</span> Basic categories</li>
-          <li><span class="check">✓</span> 2 accounts</li>
-          <li><span class="dash">–</span> Multiple life areas</li>
-          <li><span class="dash">–</span> Goals tracking</li>
-          <li><span class="dash">–</span> Schedule C tax tools</li>
-        </ul>
-        <a href="https://apps.apple.com/app/id6772658395" class="pricing-cta secondary">Download Free</a>
-      </div>
-
-      <div class="pricing-card featured">
-        <div class="pricing-badge">Most Popular</div>
-        <h3>Premium Annual</h3>
-        <div class="pricing-price">$24.99<span>/year</span></div>
-        <p class="pricing-period">Less than $2.10/month</p>
-        <ul class="pricing-features">
-          <li><span class="check">✓</span> Unlimited life areas</li>
-          <li><span class="check">✓</span> Unlimited transactions</li>
-          <li><span class="check">✓</span> Custom categories</li>
-          <li><span class="check">✓</span> Unlimited accounts</li>
-          <li><span class="check">✓</span> Financial goals</li>
-          <li><span class="check">✓</span> Receipt capture</li>
-          <li><span class="check">✓</span> Schedule C tax tools</li>
-        </ul>
-        <a href="https://apps.apple.com/app/id6772658395" class="pricing-cta primary">Get Premium</a>
-      </div>
-
-      <div class="pricing-card">
-        <h3>Premium Monthly</h3>
-        <div class="pricing-price">$2.99<span>/month</span></div>
-        <p class="pricing-period">Billed monthly, cancel anytime</p>
-        <ul class="pricing-features">
-          <li><span class="check">✓</span> Everything in Free</li>
-          <li><span class="check">✓</span> Unlimited life areas</li>
-          <li><span class="check">✓</span> Unlimited accounts</li>
-          <li><span class="check">✓</span> Financial goals</li>
-          <li><span class="check">✓</span> Receipt capture</li>
-          <li><span class="check">✓</span> Schedule C tax tools</li>
-          <li><span class="check">✓</span> Cancel anytime</li>
-        </ul>
-        <a href="https://apps.apple.com/app/id6772658395" class="pricing-cta secondary">Start Monthly</a>
-      </div>
-
+    <div class="feat-card">
+      <div class="feat-icon">🏦</div>
+      <h3>Múltiples cuentas</h3>
+      <p>Gestiona efectivo, cuentas bancarias, tarjetas de crédito y ahorros desde un solo lugar.</p>
     </div>
-
-    <p class="savings-note">Save <strong>30%</strong> with the annual plan vs monthly billing.</p>
-  </section>
-
-  <!-- DOWNLOAD CTA -->
-  <section class="cta-section">
-    <h2>Take control of your finances today.</h2>
-    <p>Free to download. No account required. Works offline.</p>
-    <div class="cta-badges">
-      <a href="https://apps.apple.com/app/id6772658395" class="store-badge">
-        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
-      </a>
-      <a href="https://apps.apple.com/app/id6772658395" class="store-badge">
-        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-mac-app-store.svg" alt="Download on the Mac App Store">
-      </a>
+    <div class="feat-card">
+      <div class="feat-icon">🎯</div>
+      <h3>Metas y ahorros</h3>
+      <p>Establece metas, ahorra de forma automática y recibe alertas cuando te acerques a tus objetivos.</p>
     </div>
-  </section>
-
-  <footer>
-    <p>© 2026 MT Software. All rights reserved.</p>
-    <div style="margin-top: 0.8rem;">
-      <a href="index.html">MT Software</a>
-      <a href="privacy-policy.html">Privacy Policy</a>
-      <a href="mailto:support@mtsoftware.app">Support</a>
+    <div class="feat-card">
+      <div class="feat-icon">🌐</div>
+      <h3>Ámbitos de vida</h3>
+      <p>Separa tus finanzas personales, de negocio y familiares. Todo organizado y sin mezclas.</p>
     </div>
-  </footer>
+    <div class="feat-card">
+      <div class="feat-icon">🧾</div>
+      <h3>Captura de recibos</h3>
+      <p>Fotografía tus recibos y adjúntalos a cada transacción. Tus registros siempre a la mano.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📋</div>
+      <h3>Reportes y análisis</h3>
+      <p>Visualiza reportes claros y toma decisiones financieras más inteligentes con datos reales.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📑</div>
+      <h3>Schedule C (EE.UU.)</h3>
+      <p>¿Trabajas por cuenta propia? Etiqueta gastos por línea de Schedule C y simplifica tus impuestos.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🌙</div>
+      <h3>Modo oscuro</h3>
+      <p>Se adapta automáticamente a tu preferencia del sistema. Cómodo de día y de noche.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<div class="privacy-banner">
+  <div class="lock">🔒</div>
+  <h2>Tus datos <span class="green">nunca salen</span><br>de tu dispositivo.</h2>
+  <p>Maytay Finance guarda todo localmente en tu iPhone, iPad o Mac. Sin cuentas que crear, sin servidores que confiar, sin rastreo. Solo tus datos, en tu dispositivo.</p>
+</div>
+
+<!-- PRICING -->
+<section class="section" id="precios">
+  <p class="section-label">Precios simples. Valor real.</p>
+  <h2 class="section-title">Elige el plan que mejor se adapte a ti.</h2>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <h3>Gratis</h3>
+      <div class="price-amount">$0<span>/mes</span></div>
+      <p class="price-period">Ideal para comenzar a tomar control de tus finanzas</p>
+      <ul class="price-features">
+        <li><span class="check">✓</span> Control de gastos básico</li>
+        <li><span class="check">✓</span> 1 ámbito de vida</li>
+        <li><span class="check">✓</span> 2 cuentas</li>
+        <li><span class="check">✓</span> Transacciones ilimitadas</li>
+        <li><span class="x">–</span> Metas de ahorro</li>
+        <li><span class="x">–</span> Captura de recibos</li>
+        <li><span class="x">–</span> Schedule C fiscal</li>
+      </ul>
+      <a href="https://apps.apple.com/app/id6772658395" class="price-cta price-cta-ghost">Comenzar gratis</a>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">Más popular</div>
+      <h3>Premium Anual</h3>
+      <div class="price-amount">$24.99<span>/año</span></div>
+      <p class="price-period">Menos de $2.10 al mes · Ahorra 30%</p>
+      <ul class="price-features">
+        <li><span class="check">✓</span> Todo lo de Gratis</li>
+        <li><span class="check">✓</span> Ámbitos ilimitados</li>
+        <li><span class="check">✓</span> Cuentas ilimitadas</li>
+        <li><span class="check">✓</span> Metas de ahorro</li>
+        <li><span class="check">✓</span> Captura de recibos</li>
+        <li><span class="check">✓</span> Schedule C fiscal</li>
+        <li><span class="check">✓</span> Soporte prioritario</li>
+      </ul>
+      <a href="https://apps.apple.com/app/id6772658395" class="price-cta price-cta-primary">Elegir anual</a>
+    </div>
+    <div class="price-card">
+      <h3>Premium Mensual</h3>
+      <div class="price-amount">$2.99<span>/mes</span></div>
+      <p class="price-period">Cancela cuando quieras</p>
+      <ul class="price-features">
+        <li><span class="check">✓</span> Todo lo de Gratis</li>
+        <li><span class="check">✓</span> Ámbitos ilimitados</li>
+        <li><span class="check">✓</span> Cuentas ilimitadas</li>
+        <li><span class="check">✓</span> Metas de ahorro</li>
+        <li><span class="check">✓</span> Captura de recibos</li>
+        <li><span class="check">✓</span> Schedule C fiscal</li>
+        <li><span class="check">✓</span> Cancela cuando quieras</li>
+      </ul>
+      <a href="https://apps.apple.com/app/id6772658395" class="price-cta price-cta-ghost">Elegir mensual</a>
+    </div>
+  </div>
+  <p class="savings-note">Ahorra <strong>30%</strong> eligiendo el plan anual en lugar del mensual.</p>
+</section>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <div class="bottom-cta-inner">
+    <div class="cta-rocket">🚀</div>
+    <div class="cta-text">
+      <h2>Empieza hoy tu camino hacia la libertad financiera</h2>
+      <p>Descarga Maytay Finance y toma el control de tu dinero.</p>
+      <div class="cta-badges">
+        <a href="https://apps.apple.com/app/id6772658395" class="store-badge">
+          <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Descargar en el App Store">
+        </a>
+        <a href="https://apps.apple.com/app/id6772658395" class="store-badge">
+          <img src="https://developer.apple.com/assets/elements/badges/download-on-the-mac-app-store.svg" alt="Descargar en el Mac App Store">
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 MT Software. Todos los derechos reservados.</p>
+  <div style="margin-top:0.5rem;">
+    <a href="index.html">MT Software</a>
+    <a href="privacy-policy.html">Política de privacidad</a>
+    <a href="mailto:support@mtsoftware.app">Soporte</a>
+  </div>
+</footer>
 
 </body>
 </html>
