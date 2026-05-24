@@ -31,13 +31,7 @@
     .store-badge{display:inline-block;transition:opacity 0.2s,transform 0.15s;}
     .store-badge:hover{opacity:0.85;transform:scale(1.03);}
     .store-badge img{height:44px;display:block;}
-    .win-badge{display:inline-flex;align-items:center;gap:0.55rem;height:44px;padding:0 0.95rem;background:#000;border:1px solid rgba(255,255,255,0.4);border-radius:8px;text-decoration:none;}
-    .win-badge svg{width:19px;height:19px;flex-shrink:0;}
-    .win-badge .wb-text{display:flex;flex-direction:column;line-height:1.05;color:#fff;}
-    .win-badge .wb-text small{font-size:0.56rem;font-weight:400;letter-spacing:0.02em;}
-    .win-badge .wb-text b{font-size:0.98rem;font-weight:600;letter-spacing:0.01em;}
     .hero-note{font-size:0.82rem;color:var(--text-dim);}
-    .smartscreen-note{font-size:0.74rem;color:var(--text-dim);margin-top:0.6rem;max-width:480px;line-height:1.5;}
     .hero-visual{flex:0 0 240px;display:flex;justify-content:center;align-items:center;position:relative;}
     .glow-orb{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,var(--blue-glow) 0%,transparent 70%);pointer-events:none;}
     .phone-frame{width:210px;background:var(--bg2);border-radius:30px;border:1.5px solid var(--border);overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,0.7);position:relative;z-index:2;}
@@ -137,13 +131,8 @@
     <div class="store-badges">
       <a href="https://apps.apple.com/app/id6772658395" class="store-badge"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?size=250x83" alt="App Store"></a>
       <a href="https://apps.apple.com/app/id6772658395" class="store-badge"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-mac-app-store/black/en-us?size=250x83" alt="Mac App Store"></a>
-      <a href="downloads/MaytayFinanceSetup.exe" class="win-badge" download>
-        <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M0 3.449 9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
-        <span class="wb-text"><small data-i18n="win_small">Descargar para</small><b>Windows</b></span>
-      </a>
     </div>
-    <p class="hero-note" data-i18n="hero_note">Gratis para comenzar · iPhone · iPad · Mac · Windows · Sin cuenta requerida</p>
-    <p class="smartscreen-note" data-i18n="smartscreen">⚠️ En Windows puede aparecer un aviso de seguridad (editor desconocido). Haz clic en "Más información" → "Ejecutar de todas formas". Es normal en apps nuevas sin certificado de pago.</p>
+    <p class="hero-note" data-i18n="hero_note">Gratis para comenzar · iPhone · iPad · Mac · Sin cuenta requerida</p>
   </div>
   <div class="hero-visual">
     <div class="glow-orb"></div>
@@ -270,10 +259,6 @@
       <div class="cta-badges">
         <a href="https://apps.apple.com/app/id6772658395" class="store-badge"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?size=250x83" alt="App Store"></a>
         <a href="https://apps.apple.com/app/id6772658395" class="store-badge"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-mac-app-store/black/en-us?size=250x83" alt="Mac App Store"></a>
-        <a href="downloads/MaytayFinanceSetup.exe" class="win-badge" download>
-          <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M0 3.449 9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
-          <span class="wb-text"><small data-i18n="win_small">Descargar para</small><b>Windows</b></span>
-        </a>
       </div>
     </div>
   </div>
@@ -294,9 +279,7 @@ const T = {
     nav_features:"Características", nav_pricing:"Precios", nav_cta:"Descargar ahora",
     hero_title:'Tu dinero. Tu plan.<span class="accent">Tu futuro.</span>',
     hero_desc:"Maytay Finance es la app de finanzas personales que te ayuda a tomar el control de tu dinero, planificar tus metas y construir tu libertad financiera.",
-    hero_note:"Gratis para comenzar · iPhone · iPad · Mac · Windows · Sin cuenta requerida",
-    win_small:"Descargar para",
-    smartscreen:"⚠️ En Windows puede aparecer un aviso de seguridad (editor desconocido). Haz clic en \"Más información\" → \"Ejecutar de todas formas\". Es normal en apps nuevas sin certificado de pago.",
+    hero_note:"Gratis para comenzar · iPhone · iPad · Mac · Sin cuenta requerida",
     ph_greeting:"Hola 👋", ph_total_label:"Saldo total", ph_change:"↑ +4.7% este mes",
     ph_accounts_title:"Cuentas", acc_cash:"Efectivo", acc_bank:"Banco", acc_savings:"Ahorros",
     stat1:"Privado", stat2:"Datos recopilados", stat3:"Plataformas", stat4_val:"Gratis", stat4_lbl:"Para comenzar",
@@ -329,9 +312,7 @@ const T = {
     nav_features:"Features", nav_pricing:"Pricing", nav_cta:"Download now",
     hero_title:'Your money. Your plan.<span class="accent">Your future.</span>',
     hero_desc:"Maytay Finance is the personal finance app that helps you take control of your money, plan your goals, and build your financial freedom.",
-    hero_note:"Free to start · iPhone · iPad · Mac · Windows · No account required",
-    win_small:"Download for",
-    smartscreen:"⚠️ Windows may show a security warning (unknown publisher). Click \"More info\" → \"Run anyway\". This is normal for new apps without a paid certificate.",
+    hero_note:"Free to start · iPhone · iPad · Mac · No account required",
     ph_greeting:"Hi 👋", ph_total_label:"Total balance", ph_change:"↑ +4.7% this month",
     ph_accounts_title:"Accounts", acc_cash:"Cash", acc_bank:"Bank", acc_savings:"Savings",
     stat1:"Private", stat2:"Data collected", stat3:"Platforms", stat4_val:"Free", stat4_lbl:"To start",
