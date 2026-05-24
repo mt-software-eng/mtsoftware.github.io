@@ -3,141 +3,130 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MT Software — Software que simplifica tu vida</title>
-  <meta name="description" content="Desarrollamos aplicaciones modernas, seguras y fáciles de usar para finanzas, productividad y más.">
+  <title>MT Software</title>
+  <meta name="description" content="Desarrollamos aplicaciones modernas, seguras y fáciles de usar.">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #080C18; --bg2: #0D1526; --bg3: #111D33;
-      --border: rgba(255,255,255,0.08);
-      --green: #40916C; --green-bright: #52B788; --green-glow: rgba(64,145,108,0.2);
-      --text: #FFFFFF; --text-muted: rgba(255,255,255,0.6); --text-dim: rgba(255,255,255,0.35);
+      --bg:#080C18;--bg2:#0D1526;--bg3:#111D33;
+      --border:rgba(255,255,255,0.08);
+      --green:#40916C;--green-bright:#52B788;--green-glow:rgba(64,145,108,0.2);
+      --text:#FFFFFF;--text-muted:rgba(255,255,255,0.6);--text-dim:rgba(255,255,255,0.35);
     }
-    html { scroll-behavior: smooth; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    html{scroll-behavior:smooth;}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(8,12,24,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:68px;display:flex;align-items:center;padding:0 2rem;gap:1rem;}
+    .nav-logo{display:flex;align-items:center;gap:0.6rem;text-decoration:none;}
+    .logo-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--green),#2D6A4F);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:800;color:white;}
+    .logo-text{font-size:1.05rem;font-weight:700;color:var(--text);}
+    .nav-links{display:flex;align-items:center;gap:0.2rem;list-style:none;margin-left:auto;}
+    .nav-links a{text-decoration:none;color:var(--text-muted);font-size:0.9rem;padding:0.4rem 0.8rem;border-radius:8px;transition:color 0.2s,background 0.2s;}
+    .nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.06);}
+    .nav-cta{background:var(--green)!important;color:white!important;font-weight:600!important;margin-left:0.5rem;}
+    .nav-cta:hover{background:var(--green-bright)!important;}
+    .lang-toggle{background:rgba(255,255,255,0.08);border:1px solid var(--border);color:var(--text-muted);font-size:0.78rem;font-weight:700;padding:0.3rem 0.7rem;border-radius:8px;cursor:pointer;transition:all 0.2s;letter-spacing:0.05em;}
+    .lang-toggle:hover{background:rgba(255,255,255,0.14);color:white;}
 
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(8,12,24,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); height: 68px; display: flex; align-items: center; padding: 0 2rem; gap: 1rem; }
-    .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
-    .logo-icon { width: 36px; height: 36px; border-radius: 9px; background: linear-gradient(135deg, var(--green), #2D6A4F); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 800; color: white; }
-    .logo-text { font-size: 1.05rem; font-weight: 700; color: var(--text); }
-    .nav-links { display: flex; align-items: center; gap: 0.2rem; list-style: none; margin-left: auto; }
-    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; padding: 0.4rem 0.8rem; border-radius: 8px; transition: color 0.2s, background 0.2s; }
-    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
-    .nav-cta { background: var(--green) !important; color: white !important; font-weight: 600 !important; margin-left: 0.5rem; }
-    .nav-cta:hover { background: var(--green-bright) !important; }
-
-    .hero { min-height: 100vh; display: flex; align-items: center; padding: 7rem 2rem 4rem; max-width: 1200px; margin: 0 auto; gap: 4rem; }
-    .hero-content { flex: 1; max-width: 560px; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--green-glow); border: 1px solid rgba(64,145,108,0.3); color: var(--green-bright); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 20px; margin-bottom: 1.5rem; }
-    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; line-height: 1.12; letter-spacing: -1.5px; margin-bottom: 1.2rem; }
-    .hero h1 .accent { color: var(--green-bright); }
-    .hero-desc { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 2rem; max-width: 440px; }
-    .hero-buttons { display: flex; gap: 0.8rem; flex-wrap: wrap; }
-    .btn-primary { background: var(--green); color: white; text-decoration: none; padding: 0.75rem 1.6rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem; transition: background 0.2s; }
-    .btn-primary:hover { background: var(--green-bright); }
-    .btn-secondary { background: rgba(255,255,255,0.08); color: white; text-decoration: none; padding: 0.75rem 1.6rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem; border: 1px solid var(--border); transition: background 0.2s; }
-    .btn-secondary:hover { background: rgba(255,255,255,0.12); }
-
-    .hero-visual { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; }
-    .glow-orb { position: absolute; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%); pointer-events: none; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-    .device-laptop { width: 360px; background: var(--bg2); border-radius: 14px 14px 6px 6px; border: 1.5px solid var(--border); overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.6); position: relative; z-index: 2; }
-    .laptop-bar { background: var(--bg3); height: 26px; display: flex; align-items: center; padding: 0 0.7rem; gap: 5px; border-bottom: 1px solid var(--border); }
-    .d1 { width:8px;height:8px;border-radius:50%;background:#FF5F57; }
-    .d2 { width:8px;height:8px;border-radius:50%;background:#FFBD2E; }
-    .d3 { width:8px;height:8px;border-radius:50%;background:#28CA41; }
-    .laptop-screen { padding: 1rem; }
-    .preview-label { font-size: 0.65rem; font-weight: 700; color: var(--green-bright); letter-spacing: 0.08em; margin-bottom: 0.5rem; }
-    .preview-balance { font-size: 1.6rem; font-weight: 800; color: white; }
-    .preview-change { font-size: 0.68rem; color: #4ADE80; margin: 0.15rem 0 0.7rem; }
-    .chart-wrap { height: 48px; margin-bottom: 0.8rem; }
-    .chart-line { width: 100%; height: 100%; }
-    .acc-row { display: flex; align-items: center; background: rgba(255,255,255,0.04); border-radius: 7px; padding: 0.35rem 0.6rem; margin-bottom: 0.35rem; }
-    .acc-dot { width: 7px; height: 7px; border-radius: 50%; margin-right: 0.5rem; flex-shrink: 0; }
-    .acc-name { font-size: 0.7rem; color: var(--text-muted); flex: 1; }
-    .acc-amount { font-size: 0.7rem; font-weight: 600; color: white; }
-    .device-phone { width: 105px; background: var(--bg2); border-radius: 18px; border: 1.5px solid var(--border); overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: absolute; bottom: -15px; right: 5px; z-index: 3; }
-    .ph-notch { background: var(--bg3); height: 20px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); }
-    .ph-pill { width: 36px; height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; }
-    .ph-screen { padding: 0.6rem; }
-    .ph-bal { font-size: 0.75rem; font-weight: 800; margin-bottom: 0.2rem; }
-    .ph-sub { font-size: 0.55rem; color: var(--text-dim); margin-bottom: 0.6rem; }
-    .ph-bar-label { font-size: 0.5rem; color: var(--text-dim); margin-bottom: 0.12rem; }
-    .ph-bar { height: 5px; border-radius: 3px; background: rgba(255,255,255,0.08); overflow: hidden; margin-bottom: 0.4rem; }
-    .ph-fill { height: 100%; border-radius: 3px; }
-
-    .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
-
-    .section { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
-    .section-label { font-size: 0.78rem; font-weight: 700; color: var(--green-bright); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
-    .section-title { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.5rem; }
-    .section-sub { color: var(--text-muted); font-size: 1rem; margin-bottom: 3rem; }
-
-    .app-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 2rem; display: flex; gap: 1.5rem; align-items: flex-start; transition: border-color 0.2s, box-shadow 0.2s; text-decoration: none; color: inherit; }
-    .app-card:hover { border-color: rgba(64,145,108,0.4); box-shadow: 0 8px 40px rgba(64,145,108,0.1); }
-    .app-card-icon { width: 80px; height: 80px; border-radius: 20px; background: linear-gradient(135deg, #2D6A4F, #52B788); display: flex; align-items: center; justify-content: center; font-size: 2.2rem; flex-shrink: 0; box-shadow: 0 8px 24px rgba(45,106,79,0.4); }
-    .app-card-body { flex: 1; }
-    .app-card-top { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.3rem; }
-    .app-card-name { font-size: 1.3rem; font-weight: 800; }
-    .tag { font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 20px; background: var(--green-glow); color: var(--green-bright); border: 1px solid rgba(64,145,108,0.3); }
-    .app-card-tagline { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem; }
-    .app-card-desc { font-size: 0.88rem; color: var(--text-dim); margin-bottom: 1rem; }
-    .feature-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.2rem; }
-    .feature-tag { font-size: 0.78rem; color: var(--text-muted); background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 0.25rem 0.7rem; border-radius: 20px; }
-    .app-btns { display: flex; gap: 0.7rem; }
-    .btn-sm { font-size: 0.85rem; font-weight: 600; padding: 0.5rem 1.1rem; border-radius: 8px; text-decoration: none; }
-    .btn-sm-green { background: var(--green); color: white; }
-    .btn-sm-ghost { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
-
-    .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; }
-    .value-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 1.8rem; }
-    .value-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
-    .value-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .value-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
-
-    footer { border-top: 1px solid var(--border); padding: 3rem 2rem; }
-    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 3rem; }
-    .footer-brand p { font-size: 0.88rem; color: var(--text-muted); margin-top: 0.8rem; max-width: 260px; line-height: 1.6; }
-    .footer-col h4 { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 1rem; }
-    .footer-col ul { list-style: none; }
-    .footer-col ul li { margin-bottom: 0.5rem; }
-    .footer-col ul a { text-decoration: none; font-size: 0.9rem; color: var(--text-muted); transition: color 0.2s; }
-    .footer-col ul a:hover { color: white; }
-    .footer-bottom { max-width: 1100px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; }
-    .footer-bottom p { font-size: 0.82rem; color: var(--text-dim); }
-
-    @media (max-width: 768px) {
-      .hero { flex-direction: column; padding-top: 6rem; }
-      .hero-visual { display: none; }
-      .app-card { flex-direction: column; }
-      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
-      .footer-bottom { flex-direction: column; gap: 0.5rem; }
-    }
+    .hero{min-height:100vh;display:flex;align-items:center;padding:7rem 2rem 4rem;max-width:1200px;margin:0 auto;gap:4rem;}
+    .hero-content{flex:1;max-width:560px;}
+    .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--green-glow);border:1px solid rgba(64,145,108,0.3);color:var(--green-bright);font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.35rem 0.9rem;border-radius:20px;margin-bottom:1.5rem;}
+    .hero h1{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;line-height:1.12;letter-spacing:-1.5px;margin-bottom:1.2rem;}
+    .hero h1 .accent{color:var(--green-bright);}
+    .hero-desc{color:var(--text-muted);font-size:1.05rem;margin-bottom:2rem;max-width:440px;}
+    .hero-buttons{display:flex;gap:0.8rem;flex-wrap:wrap;}
+    .btn-primary{background:var(--green);color:white;text-decoration:none;padding:0.75rem 1.6rem;border-radius:10px;font-weight:600;font-size:0.95rem;transition:background 0.2s;}
+    .btn-primary:hover{background:var(--green-bright);}
+    .btn-secondary{background:rgba(255,255,255,0.08);color:white;text-decoration:none;padding:0.75rem 1.6rem;border-radius:10px;font-weight:600;font-size:0.95rem;border:1px solid var(--border);transition:background 0.2s;}
+    .btn-secondary:hover{background:rgba(255,255,255,0.12);}
+    .hero-visual{flex:1;display:flex;justify-content:center;align-items:center;position:relative;}
+    .glow-orb{position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,var(--green-glow) 0%,transparent 70%);pointer-events:none;}
+    .device-laptop{width:360px;background:var(--bg2);border-radius:14px 14px 6px 6px;border:1.5px solid var(--border);overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.6);position:relative;z-index:2;}
+    .laptop-bar{background:var(--bg3);height:26px;display:flex;align-items:center;padding:0 0.7rem;gap:5px;border-bottom:1px solid var(--border);}
+    .d1{width:8px;height:8px;border-radius:50%;background:#FF5F57;}
+    .d2{width:8px;height:8px;border-radius:50%;background:#FFBD2E;}
+    .d3{width:8px;height:8px;border-radius:50%;background:#28CA41;}
+    .laptop-screen{padding:1rem;}
+    .preview-label{font-size:0.65rem;font-weight:700;color:var(--green-bright);letter-spacing:0.08em;margin-bottom:0.5rem;}
+    .preview-balance{font-size:1.6rem;font-weight:800;color:white;}
+    .preview-change{font-size:0.68rem;color:#4ADE80;margin:0.15rem 0 0.7rem;}
+    .chart-wrap{height:48px;margin-bottom:0.8rem;}
+    .chart-line{width:100%;height:100%;}
+    .acc-row{display:flex;align-items:center;background:rgba(255,255,255,0.04);border-radius:7px;padding:0.35rem 0.6rem;margin-bottom:0.35rem;}
+    .acc-dot{width:7px;height:7px;border-radius:50%;margin-right:0.5rem;flex-shrink:0;}
+    .acc-name{font-size:0.7rem;color:var(--text-muted);flex:1;}
+    .acc-amount{font-size:0.7rem;font-weight:600;color:white;}
+    .device-phone{width:105px;background:var(--bg2);border-radius:18px;border:1.5px solid var(--border);overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.5);position:absolute;bottom:-15px;right:5px;z-index:3;}
+    .ph-notch{background:var(--bg3);height:20px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);}
+    .ph-pill{width:36px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;}
+    .ph-screen{padding:0.6rem;}
+    .ph-bal{font-size:0.75rem;font-weight:800;margin-bottom:0.2rem;}
+    .ph-sub{font-size:0.55rem;color:var(--text-dim);margin-bottom:0.6rem;}
+    .ph-bar-label{font-size:0.5rem;color:var(--text-dim);margin-bottom:0.12rem;}
+    .ph-bar{height:5px;border-radius:3px;background:rgba(255,255,255,0.08);overflow:hidden;margin-bottom:0.4rem;}
+    .ph-fill{height:100%;border-radius:3px;}
+    .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
+    .section{max-width:1100px;margin:0 auto;padding:5rem 2rem;}
+    .section-label{font-size:0.78rem;font-weight:700;color:var(--green-bright);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem;}
+    .section-title{font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800;letter-spacing:-0.5px;margin-bottom:0.5rem;}
+    .section-sub{color:var(--text-muted);font-size:1rem;margin-bottom:3rem;}
+    .app-card{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:2rem;display:flex;gap:1.5rem;align-items:flex-start;transition:border-color 0.2s,box-shadow 0.2s;text-decoration:none;color:inherit;}
+    .app-card:hover{border-color:rgba(64,145,108,0.4);box-shadow:0 8px 40px rgba(64,145,108,0.1);}
+    .app-card-icon{width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,#2D6A4F,#52B788);display:flex;align-items:center;justify-content:center;font-size:2.2rem;flex-shrink:0;box-shadow:0 8px 24px rgba(45,106,79,0.4);}
+    .app-card-body{flex:1;}
+    .app-card-top{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.3rem;}
+    .app-card-name{font-size:1.3rem;font-weight:800;}
+    .tag{font-size:0.72rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:20px;background:var(--green-glow);color:var(--green-bright);border:1px solid rgba(64,145,108,0.3);}
+    .app-card-tagline{font-size:0.9rem;color:var(--text-muted);margin-bottom:0.5rem;}
+    .app-card-desc{font-size:0.88rem;color:var(--text-dim);margin-bottom:1rem;}
+    .feature-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.2rem;}
+    .feature-tag{font-size:0.78rem;color:var(--text-muted);background:rgba(255,255,255,0.05);border:1px solid var(--border);padding:0.25rem 0.7rem;border-radius:20px;}
+    .app-btns{display:flex;gap:0.7rem;}
+    .btn-sm{font-size:0.85rem;font-weight:600;padding:0.5rem 1.1rem;border-radius:8px;text-decoration:none;}
+    .btn-sm-green{background:var(--green);color:white;}
+    .btn-sm-ghost{background:transparent;border:1px solid var(--border);color:var(--text-muted);}
+    .values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;}
+    .value-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:1.8rem;}
+    .value-icon{font-size:1.8rem;margin-bottom:0.8rem;}
+    .value-card h3{font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
+    .value-card p{font-size:0.88rem;color:var(--text-muted);line-height:1.5;}
+    footer{border-top:1px solid var(--border);padding:3rem 2rem;}
+    .footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;}
+    .footer-brand p{font-size:0.88rem;color:var(--text-muted);margin-top:0.8rem;max-width:260px;line-height:1.6;}
+    .footer-col h4{font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-dim);margin-bottom:1rem;}
+    .footer-col ul{list-style:none;}
+    .footer-col ul li{margin-bottom:0.5rem;}
+    .footer-col ul a{text-decoration:none;font-size:0.9rem;color:var(--text-muted);transition:color 0.2s;}
+    .footer-col ul a:hover{color:white;}
+    .footer-bottom{max-width:1100px;margin:2rem auto 0;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;}
+    .footer-bottom p{font-size:0.82rem;color:var(--text-dim);}
+    @media(max-width:768px){.hero{flex-direction:column;padding-top:6rem;}.hero-visual{display:none;}.app-card{flex-direction:column;}.footer-inner{grid-template-columns:1fr;gap:2rem;}.footer-bottom{flex-direction:column;gap:0.5rem;}}
+    @media(max-width:500px){.nav-links li.hide-sm{display:none;}}
   </style>
 </head>
 <body>
-
 <nav>
   <a href="/" class="nav-logo">
     <div class="logo-icon">MT</div>
     <span class="logo-text">Software</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#inicio">Inicio</a></li>
-    <li><a href="#apps">Productos</a></li>
-    <li><a href="mailto:support@mtsoftware.app">Contacto</a></li>
-    <li><a href="maytay-finance.html" class="nav-cta">Descargar apps</a></li>
+    <li class="hide-sm"><a href="#inicio" data-i18n="nav_home">Inicio</a></li>
+    <li class="hide-sm"><a href="#apps" data-i18n="nav_products">Productos</a></li>
+    <li class="hide-sm"><a href="mailto:support@mtsoftware.app" data-i18n="nav_contact">Contacto</a></li>
+    <li><button class="lang-toggle" id="langBtn" onclick="toggleLang()">EN</button></li>
+    <li><a href="maytay-finance.html" class="nav-cta" data-i18n="nav_cta">Descargar apps</a></li>
   </ul>
 </nav>
 
 <section id="inicio">
 <div class="hero">
   <div class="hero-content">
-    <div class="hero-badge">✦ Bienvenido a MT Software</div>
-    <h1>Software que simplifica,<br>herramientas que impulsan<br>tu <span class="accent">día a día.</span></h1>
-    <p class="hero-desc">Desarrollamos aplicaciones modernas, seguras y fáciles de usar para finanzas, productividad y más.</p>
+    <div class="hero-badge" data-i18n="hero_badge">✦ Bienvenido a MT Software</div>
+    <h1 data-i18n="hero_title">Software que simplifica,<br>herramientas que impulsan<br>tu <span class="accent">día a día.</span></h1>
+    <p class="hero-desc" data-i18n="hero_desc">Desarrollamos aplicaciones modernas, seguras y fáciles de usar para finanzas, productividad y más.</p>
     <div class="hero-buttons">
-      <a href="#apps" class="btn-primary">Conoce nuestros productos</a>
-      <a href="mailto:support@mtsoftware.app" class="btn-secondary">Sobre nosotros</a>
+      <a href="#apps" class="btn-primary" data-i18n="hero_btn1">Conoce nuestros productos</a>
+      <a href="mailto:support@mtsoftware.app" class="btn-secondary" data-i18n="hero_btn2">Sobre nosotros</a>
     </div>
   </div>
   <div class="hero-visual">
@@ -148,7 +137,7 @@
         <div class="laptop-screen">
           <div class="preview-label">MAYTAY FINANCE</div>
           <div class="preview-balance">$12,540.50</div>
-          <div class="preview-change">↑ +4.7% este mes</div>
+          <div class="preview-change" data-i18n="preview_change">↑ +4.7% este mes</div>
           <div class="chart-wrap">
             <svg class="chart-line" viewBox="0 0 340 48" preserveAspectRatio="none">
               <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#40916C" stop-opacity="0.35"/><stop offset="100%" stop-color="#40916C" stop-opacity="0"/></linearGradient></defs>
@@ -156,21 +145,21 @@
               <path d="M0,38 C40,36 60,28 90,23 C120,18 140,30 170,16 C200,6 220,13 250,8 C280,3 310,6 340,2 L340,48 L0,48Z" fill="url(#g)"/>
             </svg>
           </div>
-          <div class="acc-row"><div class="acc-dot" style="background:#40916C"></div><span class="acc-name">Efectivo</span><span class="acc-amount">$4,250.00</span></div>
-          <div class="acc-row"><div class="acc-dot" style="background:#3B82F6"></div><span class="acc-name">Banco</span><span class="acc-amount">$5,750.50</span></div>
-          <div class="acc-row"><div class="acc-dot" style="background:#C5A028"></div><span class="acc-name">Ahorros</span><span class="acc-amount">$2,540.00</span></div>
+          <div class="acc-row"><div class="acc-dot" style="background:#40916C"></div><span class="acc-name" data-i18n="acc_cash">Efectivo</span><span class="acc-amount">$4,250.00</span></div>
+          <div class="acc-row"><div class="acc-dot" style="background:#3B82F6"></div><span class="acc-name" data-i18n="acc_bank">Banco</span><span class="acc-amount">$5,750.50</span></div>
+          <div class="acc-row"><div class="acc-dot" style="background:#C5A028"></div><span class="acc-name" data-i18n="acc_savings">Ahorros</span><span class="acc-amount">$2,540.00</span></div>
         </div>
       </div>
       <div class="device-phone">
         <div class="ph-notch"><div class="ph-pill"></div></div>
         <div class="ph-screen">
           <div class="ph-bal">$1,840.50</div>
-          <div class="ph-sub">Gastos este mes</div>
-          <div class="ph-bar-label">Alimentación</div>
+          <div class="ph-sub" data-i18n="ph_subtitle">Gastos este mes</div>
+          <div class="ph-bar-label" data-i18n="ph_food">Alimentación</div>
           <div class="ph-bar"><div class="ph-fill" style="width:72%;background:#40916C"></div></div>
-          <div class="ph-bar-label">Transporte</div>
+          <div class="ph-bar-label" data-i18n="ph_transport">Transporte</div>
           <div class="ph-bar"><div class="ph-fill" style="width:45%;background:#3B82F6"></div></div>
-          <div class="ph-bar-label">Servicios</div>
+          <div class="ph-bar-label" data-i18n="ph_utilities">Servicios</div>
           <div class="ph-bar"><div class="ph-fill" style="width:30%;background:#C5A028"></div></div>
         </div>
       </div>
@@ -182,27 +171,27 @@
 <div class="divider"></div>
 
 <section class="section" id="apps">
-  <p class="section-label">Nuestras aplicaciones</p>
-  <h2 class="section-title">Soluciones diseñadas para hacer tu vida más fácil.</h2>
+  <p class="section-label" data-i18n="apps_label">Nuestras aplicaciones</p>
+  <h2 class="section-title" data-i18n="apps_title">Soluciones diseñadas para hacer tu vida más fácil.</h2>
   <a href="maytay-finance.html" class="app-card">
     <div class="app-card-icon">📊</div>
     <div class="app-card-body">
       <div class="app-card-top">
         <span class="app-card-name">Maytay Finance</span>
-        <span class="tag">Destacada</span>
+        <span class="tag" data-i18n="app_tag">Destacada</span>
       </div>
-      <p class="app-card-tagline">Tu dinero. Tu plan. Tu futuro.</p>
-      <p class="app-card-desc">La app de finanzas personales todo en uno. Controla tus gastos, planifica, ahorra e invierte de forma inteligente.</p>
+      <p class="app-card-tagline" data-i18n="app_tagline">Tu dinero. Tu plan. Tu futuro.</p>
+      <p class="app-card-desc" data-i18n="app_desc">La app de finanzas personales todo en uno. Controla tus gastos, planifica, ahorra e invierte de forma inteligente.</p>
       <div class="feature-tags">
-        <span class="feature-tag">💳 Control de gastos</span>
-        <span class="feature-tag">📊 Presupuestos</span>
-        <span class="feature-tag">🎯 Metas de ahorro</span>
-        <span class="feature-tag">🧾 Recibos</span>
+        <span class="feature-tag" data-i18n="ft1">💳 Control de gastos</span>
+        <span class="feature-tag" data-i18n="ft2">📊 Presupuestos</span>
+        <span class="feature-tag" data-i18n="ft3">🎯 Metas de ahorro</span>
+        <span class="feature-tag" data-i18n="ft4">🧾 Recibos</span>
         <span class="feature-tag">📋 Schedule C</span>
       </div>
       <div class="app-btns">
-        <span class="btn-sm btn-sm-green">Conocer más</span>
-        <span class="btn-sm btn-sm-ghost">⬇ Descargar</span>
+        <span class="btn-sm btn-sm-green" data-i18n="app_btn1">Conocer más</span>
+        <span class="btn-sm btn-sm-ghost" data-i18n="app_btn2">⬇ Descargar</span>
       </div>
     </div>
   </a>
@@ -214,18 +203,18 @@
   <div class="values-grid">
     <div class="value-card">
       <div class="value-icon">🔒</div>
-      <h3>Seguridad ante todo</h3>
-      <p>Tus datos están protegidos con los más altos estándares de seguridad y privacidad. Sin servidores externos.</p>
+      <h3 data-i18n="val1_title">Seguridad ante todo</h3>
+      <p data-i18n="val1_desc">Tus datos están protegidos con los más altos estándares de seguridad y privacidad. Sin servidores externos.</p>
     </div>
     <div class="value-card">
       <div class="value-icon">👤</div>
-      <h3>Hecho para ti</h3>
-      <p>Aplicaciones intuitivas, rápidas y diseñadas para mejorar tu productividad desde el primer uso.</p>
+      <h3 data-i18n="val2_title">Hecho para ti</h3>
+      <p data-i18n="val2_desc">Aplicaciones intuitivas, rápidas y diseñadas para mejorar tu productividad desde el primer uso.</p>
     </div>
     <div class="value-card">
       <div class="value-icon">🍎</div>
-      <h3>Nativo en Apple</h3>
-      <p>Diseñado específicamente para iPhone, iPad y Mac. Rápido, pulido y natural en cada plataforma.</p>
+      <h3 data-i18n="val3_title">Nativo en Apple</h3>
+      <p data-i18n="val3_desc">Diseñado específicamente para iPhone, iPad y Mac. Rápido, pulido y natural en cada plataforma.</p>
     </div>
   </div>
 </section>
@@ -234,28 +223,99 @@
   <div class="footer-inner">
     <div class="footer-brand">
       <a href="/" class="nav-logo"><div class="logo-icon">MT</div><span class="logo-text">Software</span></a>
-      <p>Creamos software que empodera a las personas y simplifica su día a día.</p>
+      <p data-i18n="footer_brand">Creamos software que empodera a las personas y simplifica su día a día.</p>
     </div>
     <div class="footer-col">
-      <h4>Enlaces</h4>
+      <h4 data-i18n="footer_links">Enlaces</h4>
       <ul>
-        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#inicio" data-i18n="nav_home">Inicio</a></li>
         <li><a href="maytay-finance.html">Maytay Finance</a></li>
-        <li><a href="mailto:support@mtsoftware.app">Contacto</a></li>
+        <li><a href="mailto:support@mtsoftware.app" data-i18n="nav_contact">Contacto</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Legal</h4>
+      <h4 data-i18n="footer_legal">Legal</h4>
       <ul>
-        <li><a href="privacy-policy.html">Política de privacidad</a></li>
-        <li><a href="mailto:support@mtsoftware.app">Soporte</a></li>
+        <li><a href="privacy-policy.html" data-i18n="footer_privacy">Política de privacidad</a></li>
+        <li><a href="mailto:support@mtsoftware.app" data-i18n="footer_support">Soporte</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 MT Software. Todos los derechos reservados.</p>
+    <p data-i18n="footer_copy">© 2026 MT Software. Todos los derechos reservados.</p>
     <p>support@mtsoftware.app</p>
   </div>
 </footer>
+
+<script>
+const T = {
+  es: {
+    nav_home:"Inicio", nav_products:"Productos", nav_contact:"Contacto", nav_cta:"Descargar apps",
+    hero_badge:"✦ Bienvenido a MT Software",
+    hero_title:'Software que simplifica,<br>herramientas que impulsan<br>tu <span class="accent">día a día.</span>',
+    hero_desc:"Desarrollamos aplicaciones modernas, seguras y fáciles de usar para finanzas, productividad y más.",
+    hero_btn1:"Conoce nuestros productos", hero_btn2:"Sobre nosotros",
+    preview_change:"↑ +4.7% este mes",
+    acc_cash:"Efectivo", acc_bank:"Banco", acc_savings:"Ahorros",
+    ph_subtitle:"Gastos este mes", ph_food:"Alimentación", ph_transport:"Transporte", ph_utilities:"Servicios",
+    apps_label:"Nuestras aplicaciones", apps_title:"Soluciones diseñadas para hacer tu vida más fácil.",
+    app_tag:"Destacada", app_tagline:"Tu dinero. Tu plan. Tu futuro.",
+    app_desc:"La app de finanzas personales todo en uno. Controla tus gastos, planifica, ahorra e invierte de forma inteligente.",
+    ft1:"💳 Control de gastos", ft2:"📊 Presupuestos", ft3:"🎯 Metas de ahorro", ft4:"🧾 Recibos",
+    app_btn1:"Conocer más", app_btn2:"⬇ Descargar",
+    val1_title:"Seguridad ante todo", val1_desc:"Tus datos están protegidos con los más altos estándares de seguridad y privacidad. Sin servidores externos.",
+    val2_title:"Hecho para ti", val2_desc:"Aplicaciones intuitivas, rápidas y diseñadas para mejorar tu productividad desde el primer uso.",
+    val3_title:"Nativo en Apple", val3_desc:"Diseñado específicamente para iPhone, iPad y Mac. Rápido, pulido y natural en cada plataforma.",
+    footer_brand:"Creamos software que empodera a las personas y simplifica su día a día.",
+    footer_links:"Enlaces", footer_legal:"Legal", footer_privacy:"Política de privacidad",
+    footer_support:"Soporte", footer_copy:"© 2026 MT Software. Todos los derechos reservados."
+  },
+  en: {
+    nav_home:"Home", nav_products:"Products", nav_contact:"Contact", nav_cta:"Download apps",
+    hero_badge:"✦ Welcome to MT Software",
+    hero_title:'Software that simplifies,<br>tools that power<br>your <span class="accent">everyday life.</span>',
+    hero_desc:"We build modern, secure, and easy-to-use apps for finance, productivity, and more.",
+    hero_btn1:"Explore our products", hero_btn2:"About us",
+    preview_change:"↑ +4.7% this month",
+    acc_cash:"Cash", acc_bank:"Bank", acc_savings:"Savings",
+    ph_subtitle:"Spending this month", ph_food:"Food", ph_transport:"Transport", ph_utilities:"Utilities",
+    apps_label:"Our apps", apps_title:"Solutions designed to make your life easier.",
+    app_tag:"Featured", app_tagline:"Your money. Your plan. Your future.",
+    app_desc:"The all-in-one personal finance app. Track expenses, plan, save, and invest — intelligently.",
+    ft1:"💳 Expense tracking", ft2:"📊 Budgets", ft3:"🎯 Savings goals", ft4:"🧾 Receipts",
+    app_btn1:"Learn more", app_btn2:"⬇ Download",
+    val1_title:"Security first", val1_desc:"Your data is protected with the highest security and privacy standards. No external servers.",
+    val2_title:"Built for you", val2_desc:"Intuitive, fast apps designed to boost your productivity from the very first use.",
+    val3_title:"Native on Apple", val3_desc:"Built specifically for iPhone, iPad, and Mac. Fast, polished, and natural on every platform.",
+    footer_brand:"We create software that empowers people and simplifies their everyday life.",
+    footer_links:"Links", footer_legal:"Legal", footer_privacy:"Privacy Policy",
+    footer_support:"Support", footer_copy:"© 2026 MT Software. All rights reserved."
+  }
+};
+
+function getLang() {
+  const saved = localStorage.getItem('mts_lang');
+  if (saved) return saved;
+  const browser = (navigator.language || navigator.userLanguage || 'en').slice(0,2).toLowerCase();
+  return browser === 'es' ? 'es' : 'en';
+}
+
+function applyLang(lang) {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (T[lang] && T[lang][key] !== undefined) el.innerHTML = T[lang][key];
+  });
+  document.documentElement.lang = lang;
+  document.getElementById('langBtn').textContent = lang === 'es' ? 'EN' : 'ES';
+  localStorage.setItem('mts_lang', lang);
+}
+
+function toggleLang() {
+  const current = getLang();
+  applyLang(current === 'es' ? 'en' : 'es');
+}
+
+applyLang(getLang());
+</script>
 </body>
 </html>
