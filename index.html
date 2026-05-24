@@ -10,43 +10,43 @@
     :root {
       --bg:#080C18;--bg2:#0D1526;--bg3:#111D33;
       --border:rgba(255,255,255,0.08);
-      --green:#40916C;--green-bright:#52B788;--green-glow:rgba(64,145,108,0.2);
+      --blue:#1D4ED8;--blue-bright:#60A5FA;--blue-glow:rgba(29,78,216,0.2);
       --text:#FFFFFF;--text-muted:rgba(255,255,255,0.6);--text-dim:rgba(255,255,255,0.35);
     }
     html{scroll-behavior:smooth;}
     body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
     nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(8,12,24,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:68px;display:flex;align-items:center;padding:0 2rem;gap:1rem;}
     .nav-logo{display:flex;align-items:center;gap:0.6rem;text-decoration:none;}
-    .logo-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--green),#2D6A4F);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:800;color:white;}
+    .logo-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#071642,#1D4ED8);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(29,78,216,0.4);}
     .logo-text{font-size:1.05rem;font-weight:700;color:var(--text);}
     .nav-links{display:flex;align-items:center;gap:0.2rem;list-style:none;margin-left:auto;}
     .nav-links a{text-decoration:none;color:var(--text-muted);font-size:0.9rem;padding:0.4rem 0.8rem;border-radius:8px;transition:color 0.2s,background 0.2s;}
     .nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.06);}
-    .nav-cta{background:var(--green)!important;color:white!important;font-weight:600!important;margin-left:0.5rem;}
-    .nav-cta:hover{background:var(--green-bright)!important;}
+    .nav-cta{background:var(--blue)!important;color:white!important;font-weight:600!important;margin-left:0.5rem;}
+    .nav-cta:hover{background:var(--blue-bright)!important;}
     .lang-toggle{background:rgba(255,255,255,0.08);border:1px solid var(--border);color:var(--text-muted);font-size:0.78rem;font-weight:700;padding:0.3rem 0.7rem;border-radius:8px;cursor:pointer;transition:all 0.2s;letter-spacing:0.05em;}
     .lang-toggle:hover{background:rgba(255,255,255,0.14);color:white;}
 
     .hero{min-height:100vh;display:flex;align-items:center;padding:7rem 2rem 4rem;max-width:1200px;margin:0 auto;gap:4rem;}
     .hero-content{flex:1;max-width:560px;}
-    .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--green-glow);border:1px solid rgba(64,145,108,0.3);color:var(--green-bright);font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.35rem 0.9rem;border-radius:20px;margin-bottom:1.5rem;}
+    .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--blue-glow);border:1px solid rgba(29,78,216,0.3);color:var(--blue-bright);font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.35rem 0.9rem;border-radius:20px;margin-bottom:1.5rem;}
     .hero h1{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;line-height:1.12;letter-spacing:-1.5px;margin-bottom:1.2rem;}
-    .hero h1 .accent{color:var(--green-bright);}
+    .hero h1 .accent{color:var(--blue-bright);}
     .hero-desc{color:var(--text-muted);font-size:1.05rem;margin-bottom:2rem;max-width:440px;}
     .hero-buttons{display:flex;gap:0.8rem;flex-wrap:wrap;}
-    .btn-primary{background:var(--green);color:white;text-decoration:none;padding:0.75rem 1.6rem;border-radius:10px;font-weight:600;font-size:0.95rem;transition:background 0.2s;}
-    .btn-primary:hover{background:var(--green-bright);}
+    .btn-primary{background:var(--blue);color:white;text-decoration:none;padding:0.75rem 1.6rem;border-radius:10px;font-weight:600;font-size:0.95rem;transition:background 0.2s;}
+    .btn-primary:hover{background:var(--blue-bright);}
     .btn-secondary{background:rgba(255,255,255,0.08);color:white;text-decoration:none;padding:0.75rem 1.6rem;border-radius:10px;font-weight:600;font-size:0.95rem;border:1px solid var(--border);transition:background 0.2s;}
     .btn-secondary:hover{background:rgba(255,255,255,0.12);}
     .hero-visual{flex:1;display:flex;justify-content:center;align-items:center;position:relative;}
-    .glow-orb{position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,var(--green-glow) 0%,transparent 70%);pointer-events:none;}
+    .glow-orb{position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,var(--blue-glow) 0%,transparent 70%);pointer-events:none;}
     .device-laptop{width:360px;background:var(--bg2);border-radius:14px 14px 6px 6px;border:1.5px solid var(--border);overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.6);position:relative;z-index:2;}
     .laptop-bar{background:var(--bg3);height:26px;display:flex;align-items:center;padding:0 0.7rem;gap:5px;border-bottom:1px solid var(--border);}
     .d1{width:8px;height:8px;border-radius:50%;background:#FF5F57;}
     .d2{width:8px;height:8px;border-radius:50%;background:#FFBD2E;}
     .d3{width:8px;height:8px;border-radius:50%;background:#28CA41;}
     .laptop-screen{padding:1rem;}
-    .preview-label{font-size:0.65rem;font-weight:700;color:var(--green-bright);letter-spacing:0.08em;margin-bottom:0.5rem;}
+    .preview-label{font-size:0.65rem;font-weight:700;color:var(--blue-bright);letter-spacing:0.08em;margin-bottom:0.5rem;}
     .preview-balance{font-size:1.6rem;font-weight:800;color:white;}
     .preview-change{font-size:0.68rem;color:#4ADE80;margin:0.15rem 0 0.7rem;}
     .chart-wrap{height:48px;margin-bottom:0.8rem;}
@@ -66,23 +66,23 @@
     .ph-fill{height:100%;border-radius:3px;}
     .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
     .section{max-width:1100px;margin:0 auto;padding:5rem 2rem;}
-    .section-label{font-size:0.78rem;font-weight:700;color:var(--green-bright);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem;}
+    .section-label{font-size:0.78rem;font-weight:700;color:var(--blue-bright);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem;}
     .section-title{font-size:clamp(1.8rem,4vw,2.4rem);font-weight:800;letter-spacing:-0.5px;margin-bottom:0.5rem;}
     .section-sub{color:var(--text-muted);font-size:1rem;margin-bottom:3rem;}
     .app-card{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:2rem;display:flex;gap:1.5rem;align-items:flex-start;transition:border-color 0.2s,box-shadow 0.2s;text-decoration:none;color:inherit;}
-    .app-card:hover{border-color:rgba(64,145,108,0.4);box-shadow:0 8px 40px rgba(64,145,108,0.1);}
-    .app-card-icon{width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,#2D6A4F,#52B788);display:flex;align-items:center;justify-content:center;font-size:2.2rem;flex-shrink:0;box-shadow:0 8px 24px rgba(45,106,79,0.4);}
+    .app-card:hover{border-color:rgba(29,78,216,0.4);box-shadow:0 8px 40px rgba(29,78,216,0.1);}
+    .app-card-icon{width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,#0B1D4E,#60A5FA);display:flex;align-items:center;justify-content:center;font-size:2.2rem;flex-shrink:0;box-shadow:0 8px 24px rgba(11,29,78,0.4);}
     .app-card-body{flex:1;}
     .app-card-top{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.3rem;}
     .app-card-name{font-size:1.3rem;font-weight:800;}
-    .tag{font-size:0.72rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:20px;background:var(--green-glow);color:var(--green-bright);border:1px solid rgba(64,145,108,0.3);}
+    .tag{font-size:0.72rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:20px;background:var(--blue-glow);color:var(--blue-bright);border:1px solid rgba(29,78,216,0.3);}
     .app-card-tagline{font-size:0.9rem;color:var(--text-muted);margin-bottom:0.5rem;}
     .app-card-desc{font-size:0.88rem;color:var(--text-dim);margin-bottom:1rem;}
     .feature-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.2rem;}
     .feature-tag{font-size:0.78rem;color:var(--text-muted);background:rgba(255,255,255,0.05);border:1px solid var(--border);padding:0.25rem 0.7rem;border-radius:20px;}
     .app-btns{display:flex;gap:0.7rem;}
     .btn-sm{font-size:0.85rem;font-weight:600;padding:0.5rem 1.1rem;border-radius:8px;text-decoration:none;}
-    .btn-sm-green{background:var(--green);color:white;}
+    .btn-sm-green{background:var(--blue);color:white;}
     .btn-sm-ghost{background:transparent;border:1px solid var(--border);color:var(--text-muted);}
     .values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;}
     .value-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:1.8rem;}
@@ -106,7 +106,7 @@
 <body>
 <nav>
   <a href="/" class="nav-logo">
-    <div class="logo-icon">MT</div>
+    <div class="logo-icon"><svg width="22" height="19" viewBox="0 0 22 19" fill="none"><path d="M1,17 L1,7 L7,13 L11,2 L15,13 L21,7 L21,17" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="2" r="2" fill="#93C5FD"/></svg></div>
     <span class="logo-text">Software</span>
   </a>
   <ul class="nav-links">
@@ -140,12 +140,12 @@
           <div class="preview-change" data-i18n="preview_change">↑ +4.7% este mes</div>
           <div class="chart-wrap">
             <svg class="chart-line" viewBox="0 0 340 48" preserveAspectRatio="none">
-              <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#40916C" stop-opacity="0.35"/><stop offset="100%" stop-color="#40916C" stop-opacity="0"/></linearGradient></defs>
-              <path d="M0,38 C40,36 60,28 90,23 C120,18 140,30 170,16 C200,6 220,13 250,8 C280,3 310,6 340,2" fill="none" stroke="#52B788" stroke-width="2"/>
+              <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1D4ED8" stop-opacity="0.35"/><stop offset="100%" stop-color="#1D4ED8" stop-opacity="0"/></linearGradient></defs>
+              <path d="M0,38 C40,36 60,28 90,23 C120,18 140,30 170,16 C200,6 220,13 250,8 C280,3 310,6 340,2" fill="none" stroke="#60A5FA" stroke-width="2"/>
               <path d="M0,38 C40,36 60,28 90,23 C120,18 140,30 170,16 C200,6 220,13 250,8 C280,3 310,6 340,2 L340,48 L0,48Z" fill="url(#g)"/>
             </svg>
           </div>
-          <div class="acc-row"><div class="acc-dot" style="background:#40916C"></div><span class="acc-name" data-i18n="acc_cash">Efectivo</span><span class="acc-amount">$4,250.00</span></div>
+          <div class="acc-row"><div class="acc-dot" style="background:#1D4ED8"></div><span class="acc-name" data-i18n="acc_cash">Efectivo</span><span class="acc-amount">$4,250.00</span></div>
           <div class="acc-row"><div class="acc-dot" style="background:#3B82F6"></div><span class="acc-name" data-i18n="acc_bank">Banco</span><span class="acc-amount">$5,750.50</span></div>
           <div class="acc-row"><div class="acc-dot" style="background:#C5A028"></div><span class="acc-name" data-i18n="acc_savings">Ahorros</span><span class="acc-amount">$2,540.00</span></div>
         </div>
@@ -156,7 +156,7 @@
           <div class="ph-bal">$1,840.50</div>
           <div class="ph-sub" data-i18n="ph_subtitle">Gastos este mes</div>
           <div class="ph-bar-label" data-i18n="ph_food">Alimentación</div>
-          <div class="ph-bar"><div class="ph-fill" style="width:72%;background:#40916C"></div></div>
+          <div class="ph-bar"><div class="ph-fill" style="width:72%;background:#1D4ED8"></div></div>
           <div class="ph-bar-label" data-i18n="ph_transport">Transporte</div>
           <div class="ph-bar"><div class="ph-fill" style="width:45%;background:#3B82F6"></div></div>
           <div class="ph-bar-label" data-i18n="ph_utilities">Servicios</div>
@@ -222,7 +222,7 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <a href="/" class="nav-logo"><div class="logo-icon">MT</div><span class="logo-text">Software</span></a>
+      <a href="/" class="nav-logo"><div class="logo-icon"><svg width="22" height="19" viewBox="0 0 22 19" fill="none"><path d="M1,17 L1,7 L7,13 L11,2 L15,13 L21,7 L21,17" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="2" r="2" fill="#93C5FD"/></svg></div><span class="logo-text">Software</span></a>
       <p data-i18n="footer_brand">Creamos software que empodera a las personas y simplifica su día a día.</p>
     </div>
     <div class="footer-col">
