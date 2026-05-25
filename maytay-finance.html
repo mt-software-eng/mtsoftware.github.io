@@ -31,6 +31,12 @@
     .store-badge{display:inline-block;transition:opacity 0.2s,transform 0.15s;}
     .store-badge:hover{opacity:0.85;transform:scale(1.03);}
     .store-badge img{height:44px;display:block;}
+    .store-badge-alt{height:44px;display:inline-flex;align-items:center;gap:0.6rem;background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:0 1rem;text-decoration:none;color:var(--text);transition:transform 0.15s,border-color 0.2s;}
+    .store-badge-alt:hover{transform:scale(1.03);border-color:var(--blue-bright);}
+    .store-badge-alt .sb-icon{font-size:1.35rem;line-height:1;}
+    .store-badge-alt .sb-text{display:flex;flex-direction:column;justify-content:center;text-align:left;}
+    .store-badge-alt .sb-top{font-size:0.58rem;line-height:1.35;opacity:0.7;text-transform:uppercase;letter-spacing:0.04em;}
+    .store-badge-alt .sb-main{font-size:1rem;line-height:1.1;font-weight:700;}
     .hero-note{font-size:0.82rem;color:var(--text-dim);}
     .hero-visual{flex:0 0 240px;display:flex;justify-content:center;align-items:center;position:relative;}
     .glow-orb{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,var(--blue-glow) 0%,transparent 70%);pointer-events:none;}
@@ -131,6 +137,8 @@
     <div class="store-badges">
       <a href="https://apps.apple.com/app/id6772658395" class="store-badge"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?size=250x83" alt="App Store"></a>
       <a href="https://apps.apple.com/app/id6772658395" class="store-badge"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-mac-app-store/black/en-us?size=250x83" alt="Mac App Store"></a>
+      <a href="https://github.com/mt-software-eng/mtsoftware.github.io/releases/download/v1.0.0/MaytayFinanceSetup-1.0.0.exe" class="store-badge-alt"><span class="sb-icon">🪟</span><span class="sb-text"><span class="sb-top">Descargar gratis para</span><span class="sb-main">Windows</span></span></a>
+      <a href="https://github.com/mt-software-eng/mtsoftware.github.io/releases/download/v1.0.0/MaytayFinance-x86_64.AppImage" class="store-badge-alt"><span class="sb-icon">🐧</span><span class="sb-text"><span class="sb-top">Descargar gratis para</span><span class="sb-main">Linux</span></span></a>
     </div>
     <p class="hero-note" data-i18n="hero_note">Gratis para comenzar · iPhone · iPad · Mac · Sin cuenta requerida</p>
   </div>
@@ -259,6 +267,8 @@
       <div class="cta-badges">
         <a href="https://apps.apple.com/app/id6772658395" class="store-badge"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?size=250x83" alt="App Store"></a>
         <a href="https://apps.apple.com/app/id6772658395" class="store-badge"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-mac-app-store/black/en-us?size=250x83" alt="Mac App Store"></a>
+        <a href="https://github.com/mt-software-eng/mtsoftware.github.io/releases/download/v1.0.0/MaytayFinanceSetup-1.0.0.exe" class="store-badge-alt"><span class="sb-icon">🪟</span><span class="sb-text"><span class="sb-top">Descargar gratis para</span><span class="sb-main">Windows</span></span></a>
+        <a href="https://github.com/mt-software-eng/mtsoftware.github.io/releases/download/v1.0.0/MaytayFinance-x86_64.AppImage" class="store-badge-alt"><span class="sb-icon">🐧</span><span class="sb-text"><span class="sb-top">Descargar gratis para</span><span class="sb-main">Linux</span></span></a>
       </div>
     </div>
   </div>
