@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Church Ledger | MT Software</title>
+  <meta name="description" content="Church Ledger is an offline desktop app for church treasury, donations, reports, audit history, and encrypted backups.">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--bg:#080C18;--bg2:#0D1526;--bg3:#111D33;--border:rgba(255,255,255,0.08);--blue:#1D4ED8;--blue-bright:#60A5FA;--blue-glow:rgba(29,78,216,0.2);--green:#2F7D57;--green-bright:#6EE7B7;--gold:#C5A028;--text:#FFFFFF;--text-muted:rgba(255,255,255,0.68);--text-dim:rgba(255,255,255,0.4);}
+    html{scroll-behavior:smooth;}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(8,12,24,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:68px;display:flex;align-items:center;padding:0 2rem;gap:1rem;}
+    .nav-logo{display:flex;align-items:center;gap:0.6rem;text-decoration:none;}
+    .logo-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#071642,#1D4ED8);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(29,78,216,0.4);}
+    .logo-text{font-size:1.05rem;font-weight:700;color:var(--text);}
+    .nav-links{display:flex;align-items:center;gap:0.2rem;list-style:none;margin-left:auto;}
+    .nav-links a{text-decoration:none;color:var(--text-muted);font-size:0.88rem;padding:0.4rem 0.8rem;border-radius:8px;transition:color 0.2s,background 0.2s;}
+    .nav-links a:hover{color:var(--text);background:rgba(255,255,255,0.06);}
+    .nav-cta{background:var(--green)!important;color:white!important;font-weight:600!important;margin-left:0.5rem;}
+    .nav-cta:hover{background:#3E9C70!important;}
+    .lang-toggle{background:rgba(255,255,255,0.08);border:1px solid var(--border);color:var(--text-muted);font-size:0.78rem;font-weight:700;padding:0.3rem 0.7rem;border-radius:8px;cursor:pointer;transition:all 0.2s;letter-spacing:0.05em;}
+    .lang-toggle:hover{background:rgba(255,255,255,0.14);color:white;}
+    .hero{position:relative;min-height:92vh;display:flex;align-items:center;padding:7rem 2rem 4rem;overflow:hidden;border-bottom:1px solid var(--border);}
+    .hero::before{content:"";position:absolute;inset:0;background-image:url("assets/church-ledger-icon.png");background-repeat:no-repeat;background-position:right 7vw center;background-size:min(42vw,440px);opacity:0.22;}
+    .hero::after{content:"";position:absolute;inset:0;background:rgba(8,12,24,0.28);}
+    .hero-inner{position:relative;z-index:2;max-width:1120px;margin:0 auto;width:100%;}
+    .hero-label{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(47,125,87,0.18);border:1px solid rgba(110,231,183,0.25);color:var(--green-bright);font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.35rem 0.9rem;border-radius:20px;margin-bottom:1.5rem;}
+    h1{font-size:clamp(3rem,8vw,5.8rem);font-weight:850;line-height:0.98;letter-spacing:-1.5px;margin-bottom:1.25rem;}
+    .hero-desc{color:var(--text-muted);font-size:clamp(1.02rem,2vw,1.2rem);max-width:560px;margin-bottom:2rem;line-height:1.75;}
+    .hero-actions{display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.4rem;}
+    .btn-primary,.btn-secondary{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 1.35rem;border-radius:10px;font-weight:650;font-size:0.95rem;text-decoration:none;transition:background 0.2s,border-color 0.2s,transform 0.15s;}
+    .btn-primary{background:var(--green);color:white;}
+    .btn-primary:hover{background:#3E9C70;transform:translateY(-1px);}
+    .btn-secondary{background:rgba(255,255,255,0.08);border:1px solid var(--border);color:white;}
+    .btn-secondary:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.18);transform:translateY(-1px);}
+    .hero-note{display:flex;gap:0.7rem;flex-wrap:wrap;color:var(--text-dim);font-size:0.84rem;}
+    .hero-note span{border:1px solid var(--border);background:rgba(255,255,255,0.04);border-radius:20px;padding:0.25rem 0.65rem;}
+    .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
+    .section{max-width:1120px;margin:0 auto;padding:5rem 2rem;}
+    .section-label{font-size:0.78rem;font-weight:700;color:var(--green-bright);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem;}
+    .section-title{font-size:clamp(1.85rem,4vw,2.55rem);font-weight:800;letter-spacing:-0.5px;margin-bottom:0.6rem;line-height:1.12;}
+    .section-sub{color:var(--text-muted);font-size:1rem;margin-bottom:3rem;max-width:720px;}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:1.1rem;}
+    .feature-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:1.6rem;min-height:100%;transition:border-color 0.2s,box-shadow 0.2s;}
+    .feature-card:hover{border-color:rgba(110,231,183,0.28);box-shadow:0 8px 36px rgba(47,125,87,0.08);}
+    .feature-icon{width:42px;height:42px;border-radius:10px;background:rgba(47,125,87,0.18);border:1px solid rgba(110,231,183,0.22);display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:0.95rem;}
+    .feature-card h3{font-size:1rem;font-weight:750;margin-bottom:0.45rem;}
+    .feature-card p{font-size:0.88rem;color:var(--text-muted);line-height:1.55;}
+    .trust-band{background:#0A1223;border-top:1px solid rgba(110,231,183,0.16);border-bottom:1px solid rgba(110,231,183,0.16);padding:4.6rem 2rem;}
+    .trust-inner{max-width:820px;margin:0 auto;text-align:center;}
+    .trust-mark{width:84px;height:84px;object-fit:cover;border-radius:20px;margin-bottom:1.2rem;box-shadow:0 18px 60px rgba(47,125,87,0.2);}
+    .trust-inner h2{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:830;letter-spacing:-0.5px;line-height:1.12;margin-bottom:1rem;}
+    .trust-inner p{color:var(--text-muted);line-height:1.75;}
+    .pricing-layout{display:grid;grid-template-columns:0.95fr 1.05fr;gap:1.4rem;align-items:start;}
+    .price-card{background:var(--bg2);border:1px solid rgba(110,231,183,0.24);border-radius:20px;padding:2rem;box-shadow:0 20px 60px rgba(0,0,0,0.22);}
+    .price-card h3{font-size:1rem;text-transform:uppercase;letter-spacing:0.09em;color:var(--green-bright);margin-bottom:1rem;}
+    .price{font-size:4.4rem;font-weight:850;line-height:1;color:white;margin-bottom:0.3rem;}
+    .price span{font-size:1rem;color:var(--text-muted);font-weight:500;}
+    .price-note{color:var(--text-muted);font-size:0.9rem;margin:1rem 0 1.6rem;}
+    .checklist{list-style:none;display:grid;gap:0.7rem;}
+    .checklist li{display:flex;gap:0.65rem;color:var(--text-muted);font-size:0.95rem;}
+    .check{color:var(--green-bright);font-weight:900;}
+    .release-note{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:16px;padding:1.6rem;}
+    .release-note h3{font-size:1.05rem;margin-bottom:0.7rem;}
+    .release-note p{color:var(--text-muted);font-size:0.92rem;line-height:1.65;margin-bottom:0.8rem;}
+    .hash{overflow-wrap:anywhere;font-size:0.8rem;color:var(--text-dim);background:rgba(0,0,0,0.18);border-radius:8px;padding:0.6rem;margin-top:0.5rem;}
+    .faq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem;}
+    .faq-item{border:1px solid var(--border);border-radius:16px;padding:1.5rem;background:var(--bg2);}
+    .faq-item h3{font-size:1rem;margin-bottom:0.45rem;}
+    .faq-item p{font-size:0.9rem;color:var(--text-muted);line-height:1.62;}
+    footer{border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center;}
+    footer p{font-size:0.85rem;color:var(--text-dim);margin-bottom:0.5rem;}
+    footer a{color:var(--text-muted);text-decoration:none;margin:0 0.7rem;font-size:0.85rem;}
+    footer a:hover{color:white;}
+    @media(max-width:820px){.hero::before{background-position:right -80px top 92px;background-size:260px;opacity:0.18;}.pricing-layout{grid-template-columns:1fr;}.hero{min-height:82vh;}.nav-links li.hide-sm{display:none;}}
+    @media(max-width:500px){nav{padding:0 1rem;}.nav-cta{padding:0.42rem 0.75rem!important;font-size:0.8rem!important;margin-left:0.35rem;}.lang-toggle{padding:0.3rem 0.55rem;}.hero{padding-left:1.25rem;padding-right:1.25rem;}h1{font-size:2.8rem;letter-spacing:-0.5px;}.hero-actions a{width:100%;}.section{padding-left:1.25rem;padding-right:1.25rem;}}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon"><svg width="26" height="20" viewBox="0 0 26 20" fill="none"><path d="M1,16 L1,4 L6.5,11 L12,4 L12,16" stroke="white" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><line x1="14" y1="4" x2="25" y2="4" stroke="white" stroke-width="2.1" stroke-linecap="round"/><line x1="19.5" y1="4" x2="19.5" y2="16" stroke="white" stroke-width="2.1" stroke-linecap="round"/><circle cx="6.5" cy="11" r="1.5" fill="#93C5FD"/></svg></div>
+    <span class="logo-text">Software</span>
+  </a>
+  <ul class="nav-links">
+    <li class="hide-sm"><a href="#features" data-i18n="nav_features">Funciones</a></li>
+    <li class="hide-sm"><a href="#pricing" data-i18n="nav_pricing">Precio</a></li>
+    <li class="hide-sm"><a href="#faq" data-i18n="nav_faq">Preguntas</a></li>
+    <li><button class="lang-toggle" id="langBtn" onclick="toggleLang()">EN</button></li>
+    <li><a href="mailto:support@mtsoftware.app?subject=Church%20Ledger%20Annual%20License" class="nav-cta" data-i18n="nav_cta">Solicitar licencia</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label" data-i18n="hero_label">App de escritorio para iglesias</div>
+    <h1>Church Ledger</h1>
+    <p class="hero-desc" data-i18n="hero_desc">Tesorería, donaciones, reportes, auditoría local y backups cifrados para iglesias que necesitan orden financiero sin depender de una nube.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="mailto:support@mtsoftware.app?subject=Church%20Ledger%20Annual%20License" data-i18n="hero_buy">Solicitar licencia anual</a>
+      <a class="btn-secondary" href="#features" data-i18n="hero_learn">Ver funciones</a>
+    </div>
+    <div class="hero-note">
+      <span data-i18n="hero_note_1">30 días de prueba</span>
+      <span data-i18n="hero_note_2">$30 por año</span>
+      <span data-i18n="hero_note_3">Datos locales</span>
+      <span data-i18n="hero_note_4">macOS notarizado</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <p class="section-label" data-i18n="features_label">Funciones principales</p>
+  <h2 class="section-title" data-i18n="features_title">Una herramienta enfocada en el trabajo real de tesorería de iglesia.</h2>
+  <p class="section-sub" data-i18n="features_sub">Church Ledger organiza entradas, gastos, fondos, cuentas, remesas y reportes sin exigir servidores externos ni cuentas en la nube.</p>
+  <div class="features-grid">
+    <div class="feature-card"><div class="feature-icon">💒</div><h3 data-i18n="f1_title">Donaciones y fondos</h3><p data-i18n="f1_desc">Registra donantes, fondos, categorías y depósitos con datos claros para revisión y cierre.</p></div>
+    <div class="feature-card"><div class="feature-icon">💳</div><h3 data-i18n="f2_title">Gastos y cuentas</h3><p data-i18n="f2_desc">Controla gastos, cuentas bancarias, efectivo, transferencias internas y balances.</p></div>
+    <div class="feature-card"><div class="feature-icon">📄</div><h3 data-i18n="f3_title">Reportes imprimibles</h3><p data-i18n="f3_desc">Prepara reportes para tesorería, donantes y conferencia con formato consistente.</p></div>
+    <div class="feature-card"><div class="feature-icon">🔐</div><h3 data-i18n="f4_title">Backups cifrados</h3><p data-i18n="f4_desc">Crea copias protegidas por contraseña y restaura datos con validaciones de seguridad.</p></div>
+    <div class="feature-card"><div class="feature-icon">🧾</div><h3 data-i18n="f5_title">Auditoría local</h3><p data-i18n="f5_desc">Registra cambios importantes para que la administración tenga un historial revisable.</p></div>
+    <div class="feature-card"><div class="feature-icon">🛡️</div><h3 data-i18n="f6_title">Sin puertas traseras</h3><p data-i18n="f6_desc">La recuperación depende de claves guardadas por el administrador. Nadie puede saltarse la seguridad.</p></div>
+  </div>
+</section>
+
+<section class="trust-band">
+  <div class="trust-inner">
+    <img class="trust-mark" src="assets/church-ledger-icon.png" alt="Church Ledger icon">
+    <h2 data-i18n="trust_title">Los datos de la iglesia se quedan en la computadora de la iglesia.</h2>
+    <p data-i18n="trust_desc">Church Ledger fue diseñado para uso local. La iglesia conserva la responsabilidad de sus backups, contraseñas, claves de recuperación y archivos exportados.</p>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <p class="section-label" data-i18n="pricing_label">Licencia anual</p>
+  <h2 class="section-title" data-i18n="pricing_title">Precio simple para empezar con seriedad.</h2>
+  <p class="section-sub" data-i18n="pricing_sub">La licencia anual incluye las funciones principales, seguridad, reportes, impresión, exportación y backups cifrados.</p>
+  <div class="pricing-layout">
+    <div class="price-card">
+      <h3 data-i18n="price_name">Church Ledger Annual License</h3>
+      <div class="price">$30 <span data-i18n="price_period">/ año</span></div>
+      <p class="price-note" data-i18n="price_note">Una licencia anual por iglesia. Incluye 30 días de prueba local antes de activar.</p>
+      <a class="btn-primary" href="mailto:support@mtsoftware.app?subject=Church%20Ledger%20Annual%20License" data-i18n="price_cta">Solicitar licencia</a>
+    </div>
+    <div class="release-note">
+      <h3 data-i18n="release_title">Estado de lanzamiento</h3>
+      <p data-i18n="release_p1">La versión macOS actual está firmada con Developer ID y notarizada por Apple. Windows se preparará después con su instalador firmado.</p>
+      <ul class="checklist">
+        <li><span class="check">✓</span><span data-i18n="check_1">Modo de solo lectura si la licencia vence</span></li>
+        <li><span class="check">✓</span><span data-i18n="check_2">Backups cifrados con passphrase del usuario</span></li>
+        <li><span class="check">✓</span><span data-i18n="check_3">Firma y notarización para macOS</span></li>
+      </ul>
+      <p class="hash">SHA-256: 221c1b0fac3344cacdb614abba292e6352a874cc487de2d4fd7ce9ffd21b9106</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section" id="faq">
+  <p class="section-label" data-i18n="faq_label">Preguntas comunes</p>
+  <h2 class="section-title" data-i18n="faq_title">Claridad antes de instalar.</h2>
+  <div class="faq-grid">
+    <div class="faq-item"><h3 data-i18n="q1">¿Dónde se guardan los datos?</h3><p data-i18n="a1">En la computadora del usuario. La iglesia debe conservar backups cifrados y sus passphrases.</p></div>
+    <div class="faq-item"><h3 data-i18n="q2">¿Qué pasa si vence la licencia?</h3><p data-i18n="a2">La app permite ver, imprimir, exportar, respaldar y restaurar en modo de solo lectura.</p></div>
+    <div class="faq-item"><h3 data-i18n="q3">¿Qué pasa si se pierde la contraseña?</h3><p data-i18n="a3">Se requiere la clave de recuperación. No hay puertas traseras para entrar a los datos.</p></div>
+    <div class="faq-item"><h3 data-i18n="q4">¿Incluye Windows?</h3><p data-i18n="a4">La versión macOS está lista para lanzamiento. Windows se publicará después de completar firma e instalación.</p></div>
+  </div>
+</section>
+
+<footer>
+  <p data-i18n="footer_copy">© 2026 MT Software. Todos los derechos reservados.</p>
+  <div>
+    <a href="index.html">MT Software</a>
+    <a href="maytay-finance.html">Maytay Finance</a>
+    <a href="privacy-policy.html" data-i18n="footer_privacy">Política de privacidad</a>
+    <a href="mailto:support@mtsoftware.app" data-i18n="footer_support">Soporte</a>
+  </div>
+</footer>
+
+<script>
+const T = {
+  es: {
+    nav_features:"Funciones", nav_pricing:"Precio", nav_faq:"Preguntas", nav_cta:"Solicitar licencia",
+    hero_label:"App de escritorio para iglesias",
+    hero_desc:"Tesorería, donaciones, reportes, auditoría local y backups cifrados para iglesias que necesitan orden financiero sin depender de una nube.",
+    hero_buy:"Solicitar licencia anual", hero_learn:"Ver funciones",
+    hero_note_1:"30 días de prueba", hero_note_2:"$30 por año", hero_note_3:"Datos locales", hero_note_4:"macOS notarizado",
+    features_label:"Funciones principales", features_title:"Una herramienta enfocada en el trabajo real de tesorería de iglesia.",
+    features_sub:"Church Ledger organiza entradas, gastos, fondos, cuentas, remesas y reportes sin exigir servidores externos ni cuentas en la nube.",
+    f1_title:"Donaciones y fondos", f1_desc:"Registra donantes, fondos, categorías y depósitos con datos claros para revisión y cierre.",
+    f2_title:"Gastos y cuentas", f2_desc:"Controla gastos, cuentas bancarias, efectivo, transferencias internas y balances.",
+    f3_title:"Reportes imprimibles", f3_desc:"Prepara reportes para tesorería, donantes y conferencia con formato consistente.",
+    f4_title:"Backups cifrados", f4_desc:"Crea copias protegidas por contraseña y restaura datos con validaciones de seguridad.",
+    f5_title:"Auditoría local", f5_desc:"Registra cambios importantes para que la administración tenga un historial revisable.",
+    f6_title:"Sin puertas traseras", f6_desc:"La recuperación depende de claves guardadas por el administrador. Nadie puede saltarse la seguridad.",
+    trust_title:"Los datos de la iglesia se quedan en la computadora de la iglesia.",
+    trust_desc:"Church Ledger fue diseñado para uso local. La iglesia conserva la responsabilidad de sus backups, contraseñas, claves de recuperación y archivos exportados.",
+    pricing_label:"Licencia anual", pricing_title:"Precio simple para empezar con seriedad.",
+    pricing_sub:"La licencia anual incluye las funciones principales, seguridad, reportes, impresión, exportación y backups cifrados.",
+    price_name:"Church Ledger Annual License", price_period:"/ año", price_note:"Una licencia anual por iglesia. Incluye 30 días de prueba local antes de activar.", price_cta:"Solicitar licencia",
+    release_title:"Estado de lanzamiento", release_p1:"La versión macOS actual está firmada con Developer ID y notarizada por Apple. Windows se preparará después con su instalador firmado.",
+    check_1:"Modo de solo lectura si la licencia vence", check_2:"Backups cifrados con passphrase del usuario", check_3:"Firma y notarización para macOS",
+    faq_label:"Preguntas comunes", faq_title:"Claridad antes de instalar.",
+    q1:"¿Dónde se guardan los datos?", a1:"En la computadora del usuario. La iglesia debe conservar backups cifrados y sus passphrases.",
+    q2:"¿Qué pasa si vence la licencia?", a2:"La app permite ver, imprimir, exportar, respaldar y restaurar en modo de solo lectura.",
+    q3:"¿Qué pasa si se pierde la contraseña?", a3:"Se requiere la clave de recuperación. No hay puertas traseras para entrar a los datos.",
+    q4:"¿Incluye Windows?", a4:"La versión macOS está lista para lanzamiento. Windows se publicará después de completar firma e instalación.",
+    footer_copy:"© 2026 MT Software. Todos los derechos reservados.", footer_privacy:"Política de privacidad", footer_support:"Soporte"
+  },
+  en: {
+    nav_features:"Features", nav_pricing:"Pricing", nav_faq:"FAQ", nav_cta:"Request license",
+    hero_label:"Desktop app for churches",
+    hero_desc:"Treasury, donations, reports, local audit history, and encrypted backups for churches that need organized financial records without relying on a cloud account.",
+    hero_buy:"Request annual license", hero_learn:"View features",
+    hero_note_1:"30-day trial", hero_note_2:"$30 per year", hero_note_3:"Local data", hero_note_4:"macOS notarized",
+    features_label:"Core features", features_title:"A focused tool for real church treasury work.",
+    features_sub:"Church Ledger organizes income, expenses, funds, accounts, remittances, and reports without external servers or required cloud accounts.",
+    f1_title:"Donations and funds", f1_desc:"Track donors, funds, categories, and deposits with clear data for review and closing.",
+    f2_title:"Expenses and accounts", f2_desc:"Manage expenses, bank accounts, cash, internal transfers, and balances.",
+    f3_title:"Printable reports", f3_desc:"Prepare reports for treasury, donors, and conference review with consistent formatting.",
+    f4_title:"Encrypted backups", f4_desc:"Create password-protected backups and restore data with safety validations.",
+    f5_title:"Local audit history", f5_desc:"Record important changes so administration has a reviewable history.",
+    f6_title:"No backdoors", f6_desc:"Recovery depends on administrator-held keys. No one can bypass account security.",
+    trust_title:"Church data stays on the church computer.",
+    trust_desc:"Church Ledger is designed for local use. The church remains responsible for backups, passwords, recovery keys, and exported files.",
+    pricing_label:"Annual license", pricing_title:"Simple pricing for a serious start.",
+    pricing_sub:"The annual license includes core features, security, reports, printing, export, and encrypted backups.",
+    price_name:"Church Ledger Annual License", price_period:"/ year", price_note:"One annual license per church. Includes a 30-day local trial before activation.", price_cta:"Request license",
+    release_title:"Launch status", release_p1:"The current macOS version is Developer ID signed and Apple notarized. Windows will be prepared later with its signed installer.",
+    check_1:"Read-only mode if the license expires", check_2:"Encrypted backups with user passphrases", check_3:"macOS signing and notarization",
+    faq_label:"Common questions", faq_title:"Clarity before installation.",
+    q1:"Where is data stored?", a1:"On the user's computer. The church must keep encrypted backups and passphrases.",
+    q2:"What happens when the license expires?", a2:"The app allows viewing, printing, exporting, backup, and restore in read-only mode.",
+    q3:"What if the password is lost?", a3:"The recovery key is required. There are no backdoors into the data.",
+    q4:"Does it include Windows?", a4:"The macOS version is ready for launch. Windows will be published after signing and installer work is complete.",
+    footer_copy:"© 2026 MT Software. All rights reserved.", footer_privacy:"Privacy Policy", footer_support:"Support"
+  }
+};
+
+function getLang(){
+  const saved=localStorage.getItem('mts_lang');
+  if(saved)return saved;
+  const browser=(navigator.language||navigator.userLanguage||'en').slice(0,2).toLowerCase();
+  return browser==='es'?'es':'en';
+}
+function applyLang(lang){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    if(T[lang]&&T[lang][key]!==undefined)el.innerHTML=T[lang][key];
+  });
+  document.documentElement.lang=lang;
+  document.getElementById('langBtn').textContent=lang==='es'?'EN':'ES';
+  localStorage.setItem('mts_lang',lang);
+}
+function toggleLang(){const current=getLang();applyLang(current==='es'?'en':'es');}
+applyLang(getLang());
+</script>
+</body>
+</html>

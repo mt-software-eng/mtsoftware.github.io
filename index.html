@@ -71,7 +71,9 @@
     .section-sub{color:var(--text-muted);font-size:1rem;margin-bottom:3rem;}
     .app-card{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:2rem;display:flex;gap:1.5rem;align-items:flex-start;transition:border-color 0.2s,box-shadow 0.2s;text-decoration:none;color:inherit;}
     .app-card:hover{border-color:rgba(29,78,216,0.4);box-shadow:0 8px 40px rgba(29,78,216,0.1);}
-    .app-card-icon{width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,#0B1D4E,#60A5FA);display:flex;align-items:center;justify-content:center;font-size:2.2rem;flex-shrink:0;box-shadow:0 8px 24px rgba(11,29,78,0.4);}
+    .app-card-icon{width:80px;height:80px;border-radius:20px;background:linear-gradient(135deg,#0B1D4E,#60A5FA);display:flex;align-items:center;justify-content:center;font-size:2.2rem;flex-shrink:0;box-shadow:0 8px 24px rgba(11,29,78,0.4);overflow:hidden;}
+    .app-card-icon img{width:100%;height:100%;object-fit:cover;display:block;}
+    .app-card + .app-card{margin-top:1rem;}
     .app-card-body{flex:1;}
     .app-card-top{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.3rem;}
     .app-card-name{font-size:1.3rem;font-weight:800;}
@@ -114,7 +116,7 @@
     <li class="hide-sm"><a href="#apps" data-i18n="nav_products">Productos</a></li>
     <li class="hide-sm"><a href="mailto:support@mtsoftware.app" data-i18n="nav_contact">Contacto</a></li>
     <li><button class="lang-toggle" id="langBtn" onclick="toggleLang()">EN</button></li>
-    <li><a href="maytay-finance.html" class="nav-cta" data-i18n="nav_cta">Descargar apps</a></li>
+    <li><a href="#apps" class="nav-cta" data-i18n="nav_cta">Ver productos</a></li>
   </ul>
 </nav>
 
@@ -195,6 +197,27 @@
       </div>
     </div>
   </a>
+  <a href="church-ledger.html" class="app-card">
+    <div class="app-card-icon"><img src="assets/church-ledger-icon.png" alt=""></div>
+    <div class="app-card-body">
+      <div class="app-card-top">
+        <span class="app-card-name">Church Ledger</span>
+        <span class="tag" data-i18n="church_tag">Nueva</span>
+      </div>
+      <p class="app-card-tagline" data-i18n="church_tagline">Tesorería clara para iglesias.</p>
+      <p class="app-card-desc" data-i18n="church_desc">App de escritorio para donaciones, fondos, gastos, reportes, auditoría local y backups cifrados.</p>
+      <div class="feature-tags">
+        <span class="feature-tag" data-i18n="church_ft1">💒 Donaciones</span>
+        <span class="feature-tag" data-i18n="church_ft2">📄 Reportes</span>
+        <span class="feature-tag" data-i18n="church_ft3">🔐 Backups cifrados</span>
+        <span class="feature-tag" data-i18n="church_ft4">🖥️ macOS</span>
+      </div>
+      <div class="app-btns">
+        <span class="btn-sm btn-sm-green" data-i18n="church_btn1">Ver producto</span>
+        <span class="btn-sm btn-sm-ghost" data-i18n="church_btn2">$30/año</span>
+      </div>
+    </div>
+  </a>
 </section>
 
 <div class="divider"></div>
@@ -241,6 +264,7 @@
       <ul>
         <li><a href="#inicio" data-i18n="nav_home">Inicio</a></li>
         <li><a href="maytay-finance.html">Maytay Finance</a></li>
+        <li><a href="church-ledger.html">Church Ledger</a></li>
         <li><a href="mailto:support@mtsoftware.app" data-i18n="nav_contact">Contacto</a></li>
       </ul>
     </div>
@@ -261,7 +285,7 @@
 <script>
 const T = {
   es: {
-    nav_home:"Inicio", nav_products:"Productos", nav_contact:"Contacto", nav_cta:"Descargar apps",
+    nav_home:"Inicio", nav_products:"Productos", nav_contact:"Contacto", nav_cta:"Ver productos",
     hero_badge:"✦ Bienvenido a MT Software",
     hero_title:'Software que simplifica,<br>herramientas que impulsan<br>tu <span class="accent">día a día.</span>',
     hero_desc:"Desarrollamos aplicaciones modernas, seguras y fáciles de usar para finanzas, productividad y más.",
@@ -277,6 +301,10 @@ const T = {
     app_desc:"La app de finanzas personales todo en uno. Controla tus gastos, planifica, ahorra e invierte de forma inteligente.",
     ft1:"💳 Control de gastos", ft2:"📊 Presupuestos", ft3:"🎯 Metas de ahorro", ft4:"🧾 Recibos",
     app_btn1:"Conocer más", app_btn2:"⬇ Descargar",
+    church_tag:"Nueva", church_tagline:"Tesorería clara para iglesias.",
+    church_desc:"App de escritorio para donaciones, fondos, gastos, reportes, auditoría local y backups cifrados.",
+    church_ft1:"💒 Donaciones", church_ft2:"📄 Reportes", church_ft3:"🔐 Backups cifrados", church_ft4:"🖥️ macOS",
+    church_btn1:"Ver producto", church_btn2:"$30/año",
     val1_title:"Seguridad ante todo", val1_desc:"Tus datos están protegidos con los más altos estándares de seguridad y privacidad. Sin servidores externos.",
     val2_title:"Hecho para ti", val2_desc:"Aplicaciones intuitivas, rápidas y diseñadas para mejorar tu productividad desde el primer uso.",
     val3_title:"Nativo en Apple", val3_desc:"Diseñado específicamente para iPhone, iPad y Mac. Rápido, pulido y natural en cada plataforma.",
@@ -285,7 +313,7 @@ const T = {
     footer_support:"Soporte", footer_copy:"© 2026 MT Software. Todos los derechos reservados."
   },
   en: {
-    nav_home:"Home", nav_products:"Products", nav_contact:"Contact", nav_cta:"Download apps",
+    nav_home:"Home", nav_products:"Products", nav_contact:"Contact", nav_cta:"View products",
     hero_badge:"✦ Welcome to MT Software",
     hero_title:'Software that simplifies,<br>tools that power<br>your <span class="accent">everyday life.</span>',
     hero_desc:"We build modern, secure, and easy-to-use apps for finance, productivity, and more.",
@@ -301,6 +329,10 @@ const T = {
     app_desc:"The all-in-one personal finance app. Track expenses, plan, save, and invest — intelligently.",
     ft1:"💳 Expense tracking", ft2:"📊 Budgets", ft3:"🎯 Savings goals", ft4:"🧾 Receipts",
     app_btn1:"Learn more", app_btn2:"⬇ Download",
+    church_tag:"New", church_tagline:"Clear treasury for churches.",
+    church_desc:"Desktop app for donations, funds, expenses, reports, local audit history, and encrypted backups.",
+    church_ft1:"💒 Donations", church_ft2:"📄 Reports", church_ft3:"🔐 Encrypted backups", church_ft4:"🖥️ macOS",
+    church_btn1:"View product", church_btn2:"$30/year",
     val1_title:"Security first", val1_desc:"Your data is protected with the highest security and privacy standards. No external servers.",
     val2_title:"Built for you", val2_desc:"Intuitive, fast apps designed to boost your productivity from the very first use.",
     val3_title:"Native on Apple", val3_desc:"Built specifically for iPhone, iPad, and Mac. Fast, polished, and natural on every platform.",
