@@ -4,121 +4,124 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terms of Service — MT Software</title>
+  <meta name="description" content="Terms of Service for MT Software products, including Maytay Finance.">
+  <link rel="icon" type="image/png" href="maytay-icon.png">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --green: #2D6A4F;
-      --green-light: #40916C;
-      --cream: #F7F3EC;
-      --cream-dark: #E8E2D9;
-      --text-dark: #1A2E22;
-      --text-mid: #4A5E52;
-      --text-light: #7A9282;
-      --white: #FFFFFF;
-    }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--cream);
-      color: var(--text-dark);
-      line-height: 1.7;
-    }
-    nav {
-      background: var(--white);
-      border-bottom: 1px solid var(--cream-dark);
-      padding: 0 2rem;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .nav-logo { font-size: 1.1rem; font-weight: 700; color: var(--green); text-decoration: none; }
-    .content {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-    }
-    h1 { font-size: 2.2rem; font-weight: 800; color: var(--text-dark); margin-bottom: 0.5rem; letter-spacing: -0.5px; }
-    .meta { font-size: 0.9rem; color: var(--text-light); margin-bottom: 3rem; }
-    h2 { font-size: 1.15rem; font-weight: 700; color: var(--text-dark); margin: 2rem 0 0.6rem; }
-    p { font-size: 0.97rem; color: var(--text-mid); margin-bottom: 1rem; }
-    ul { padding-left: 1.4rem; margin-bottom: 1rem; }
-    ul li { font-size: 0.97rem; color: var(--text-mid); margin-bottom: 0.4rem; }
-    a { color: var(--green); }
-    footer {
-      background: var(--white);
-      border-top: 1px solid var(--cream-dark);
-      padding: 2rem;
-      text-align: center;
-    }
-    footer p { color: var(--text-light); font-size: 0.9rem; margin-bottom: 0.5rem; }
-    footer a { color: var(--text-mid); text-decoration: none; margin: 0 0.8rem; font-size: 0.9rem; }
-    footer a:hover { color: var(--green); }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{--bg:#080C18;--bg2:#0D1526;--bg3:#111D33;--border:rgba(255,255,255,0.08);--blue:#1D4ED8;--blue-bright:#60A5FA;--blue-glow:rgba(29,78,216,0.2);--gold:#C5A028;--text:#FFFFFF;--text-muted:rgba(255,255,255,0.6);--text-dim:rgba(255,255,255,0.35);}
+    html{scroll-behavior:smooth;}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(8,12,24,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:68px;display:flex;align-items:center;padding:0 2rem;gap:1rem;}
+    .nav-logo{display:flex;align-items:center;gap:0.6rem;text-decoration:none;}
+    .logo-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#071642,#1D4ED8);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(29,78,216,0.4);}
+    .logo-text{font-size:1.05rem;font-weight:700;color:var(--text);}
+    .nav-right{margin-left:auto;}
+    .nav-back{text-decoration:none;color:var(--text-muted);font-size:0.88rem;padding:0.4rem 0.8rem;border-radius:8px;transition:color 0.2s,background 0.2s;}
+    .nav-back:hover{color:var(--text);background:rgba(255,255,255,0.06);}
+    .page-hero{padding:7rem 2rem 3rem;max-width:760px;margin:0 auto;}
+    .page-label{font-size:0.75rem;font-weight:700;color:var(--blue-bright);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.8rem;}
+    h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:0.5rem;}
+    .page-meta{font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem;}
+    .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:1rem 0 3rem;}
+    .content{max-width:760px;margin:0 auto;padding:0 2rem 5rem;}
+    h2{font-size:0.78rem;font-weight:700;color:var(--blue-bright);margin:2.5rem 0 0.7rem;text-transform:uppercase;letter-spacing:0.08em;}
+    p{font-size:0.97rem;color:var(--text-muted);margin-bottom:0.9rem;line-height:1.7;}
+    ul{padding-left:1.4rem;margin-bottom:1rem;}
+    ul li{font-size:0.97rem;color:var(--text-muted);margin-bottom:0.5rem;line-height:1.6;}
+    ul li strong{color:var(--text);}
+    a{color:var(--blue-bright);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    .highlight{background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--blue-bright);border-radius:0 12px 12px 0;padding:1rem 1.4rem;margin:1.5rem 0;}
+    .highlight p{margin:0;color:var(--text);font-weight:500;}
+    footer{border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center;}
+    footer p{font-size:0.85rem;color:var(--text-dim);margin-bottom:0.5rem;}
+    footer a{color:var(--text-muted);text-decoration:none;margin:0 0.7rem;font-size:0.85rem;}
+    footer a:hover{color:white;}
   </style>
 </head>
 <body>
 
-  <nav>
-    <a href="index.html" class="nav-logo">MT Software</a>
-  </nav>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">
+      <svg width="26" height="20" viewBox="0 0 26 20" fill="none">
+        <path d="M1,16 L1,4 L6.5,11 L12,4 L12,16" stroke="white" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="14" y1="4" x2="25" y2="4" stroke="white" stroke-width="2.1" stroke-linecap="round"/>
+        <line x1="19.5" y1="4" x2="19.5" y2="16" stroke="white" stroke-width="2.1" stroke-linecap="round"/>
+        <circle cx="6.5" cy="11" r="1.5" fill="#93C5FD"/>
+      </svg>
+    </div>
+    <span class="logo-text">MT Software</span>
+  </a>
+  <div class="nav-right">
+    <a href="index.html" class="nav-back">← Back to MT Software</a>
+  </div>
+</nav>
 
-  <div class="content">
-    <h1>Terms of Service</h1>
-    <p class="meta">Last updated: May 31, 2026 · MT Software</p>
+<div class="page-hero">
+  <p class="page-label">Legal</p>
+  <h1>Terms of Service</h1>
+  <p class="page-meta">Last updated: May 31, 2026 &nbsp;·&nbsp; MT Software</p>
+  <div class="divider"></div>
+</div>
 
-    <p>Please read these Terms of Service ("Terms") carefully before purchasing or using any software product offered by MT Software ("we," "us," or "our"). By downloading, installing, or using our products, you agree to be bound by these Terms.</p>
+<div class="content">
 
-    <h2>1. Products</h2>
-    <p>MT Software offers desktop and mobile software applications, including Maytay Finance, a personal finance management application available for Windows, Linux, macOS, iOS, and Android. Our products are premade, ready-to-use software — we do not offer custom development, consulting, or bespoke services.</p>
+  <p>Please read these Terms of Service ("Terms") carefully before purchasing or using any software product offered by MT Software ("we," "us," or "our"). By downloading, installing, or using our products, you agree to be bound by these Terms.</p>
 
-    <h2>2. License</h2>
-    <p>Upon purchase or download, MT Software grants you a personal, non-transferable, non-exclusive license to install and use the software on your own devices for personal or business use. You may not redistribute, sublicense, rent, or resell the software.</p>
+  <h2>1. Products</h2>
+  <p>MT Software offers desktop and mobile software applications, including Maytay Finance — a personal finance management application available for Windows, Linux, macOS, iOS, and Android. Our products are premade, ready-to-use software. We do not offer custom development, consulting, or bespoke services of any kind.</p>
 
-    <h2>3. Subscriptions</h2>
-    <p>Some features of our applications require a paid subscription (Premium). Subscriptions are offered on a monthly or annual basis:</p>
-    <ul>
-      <li><strong>Premium Monthly:</strong> $2.99/month, billed monthly.</li>
-      <li><strong>Premium Annual:</strong> $24.99/year, billed annually.</li>
-    </ul>
-    <p>Subscriptions purchased through our website are processed by Lemon Squeezy, which acts as the Merchant of Record. Subscriptions purchased through Apple App Store or Google Play are governed by the respective platform's terms.</p>
+  <h2>2. License</h2>
+  <p>Upon purchase or download, MT Software grants you a personal, non-transferable, non-exclusive license to install and use the software on your own devices for personal or business use. You may not redistribute, sublicense, rent, or resell the software.</p>
 
-    <h2>4. Free Tier</h2>
-    <p>Maytay Finance is available at no cost with limited functionality. The free tier includes basic features and is not time-limited.</p>
+  <h2>3. Subscriptions</h2>
+  <p>Some features require a paid Premium subscription, offered on a monthly or annual basis:</p>
+  <ul>
+    <li><strong>Premium Monthly:</strong> $2.99/month, billed monthly.</li>
+    <li><strong>Premium Annual:</strong> $24.99/year, billed annually.</li>
+  </ul>
+  <p>Subscriptions purchased through our website are processed by Lemon Squeezy, which acts as the Merchant of Record. Subscriptions purchased through the Apple App Store or Google Play are governed by the respective platform's terms.</p>
 
-    <h2>5. Refunds</h2>
-    <p>Please see our <a href="refund-policy.html">Refund Policy</a> for complete information on refunds and cancellations.</p>
+  <h2>4. Free Tier</h2>
+  <p>Maytay Finance is available at no cost with limited functionality. The free tier is not time-limited.</p>
 
-    <h2>6. Privacy</h2>
-    <p>Our applications are designed with privacy as a core principle. All financial data is stored locally on your device and is never transmitted to our servers. Please review our <a href="privacy-policy.html">Privacy Policy</a> for full details.</p>
+  <h2>5. Refunds</h2>
+  <p>Please see our <a href="refund-policy.html">Refund Policy</a> for complete information on refunds and cancellations.</p>
 
-    <h2>7. Disclaimer of Warranties</h2>
-    <p>Our software is provided "as is" without warranties of any kind, express or implied. MT Software does not guarantee that the software will be error-free, uninterrupted, or meet your specific requirements.</p>
-    <p>Maytay Finance is a personal finance tracking tool and does not constitute financial, tax, or legal advice. Calculations and estimates provided by the app (including tax-related features) are for informational purposes only. Always consult a qualified professional for financial decisions.</p>
+  <h2>6. Privacy</h2>
+  <p>All financial data is stored locally on your device and is never transmitted to our servers. Please review our <a href="privacy-policy.html">Privacy Policy</a> for full details.</p>
 
-    <h2>8. Limitation of Liability</h2>
-    <p>To the maximum extent permitted by law, MT Software shall not be liable for any indirect, incidental, special, or consequential damages arising from the use of our products, including but not limited to loss of data or financial loss.</p>
+  <h2>7. Disclaimer of Warranties</h2>
+  <p>Our software is provided "as is" without warranties of any kind, express or implied. MT Software does not guarantee the software will be error-free, uninterrupted, or suited to your specific needs.</p>
 
-    <h2>9. Changes to Terms</h2>
-    <p>We may update these Terms from time to time. Continued use of our products after changes are posted constitutes acceptance of the updated Terms. We will indicate the date of the last update at the top of this page.</p>
-
-    <h2>10. Governing Law</h2>
-    <p>These Terms are governed by the laws of the State of Florida, United States, without regard to conflict of law principles.</p>
-
-    <h2>11. Contact</h2>
-    <p>For questions about these Terms, please contact us at <a href="mailto:support@mtsoftware.app">support@mtsoftware.app</a>.</p>
+  <div class="highlight">
+    <p>Maytay Finance is a personal finance tracking tool and does not constitute financial, tax, or legal advice. Always consult a qualified professional for financial decisions.</p>
   </div>
 
-  <footer>
-    <p>© 2026 MT Software. All rights reserved.</p>
-    <div style="margin-top: 0.8rem;">
-      <a href="index.html">MT Software</a>
-      <a href="privacy-policy.html">Privacy Policy</a>
-      <a href="refund-policy.html">Refund Policy</a>
-      <a href="mailto:support@mtsoftware.app">Support</a>
-    </div>
-  </footer>
+  <h2>8. Limitation of Liability</h2>
+  <p>To the maximum extent permitted by law, MT Software shall not be liable for any indirect, incidental, special, or consequential damages arising from the use of our products, including loss of data or financial loss.</p>
+
+  <h2>9. Changes to Terms</h2>
+  <p>We may update these Terms from time to time. Continued use of our products after changes are posted constitutes acceptance of the updated Terms.</p>
+
+  <h2>10. Governing Law</h2>
+  <p>These Terms are governed by the laws of the State of Florida, United States, without regard to conflict of law principles.</p>
+
+  <h2>11. Contact</h2>
+  <p>For questions about these Terms, contact us at <a href="mailto:support@mtsoftware.app">support@mtsoftware.app</a>.</p>
+
+</div>
+
+<footer>
+  <p>© 2026 MT Software. All rights reserved.</p>
+  <div style="margin-top:0.6rem;">
+    <a href="index.html">MT Software</a>
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="refund-policy.html">Refund Policy</a>
+    <a href="mailto:support@mtsoftware.app">Support</a>
+  </div>
+</footer>
 
 </body>
 </html>
