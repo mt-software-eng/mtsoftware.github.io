@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maytay Finance — Demo</title>
+  <link rel="icon" type="image/png" href="maytay-icon.png">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#0A0E0C; --surface:#121A16; --surface-hi:#1A241E;
+      --border:#253029; --green:#1FD79B; --green-dim:rgba(31,215,155,0.15);
+      --green-glow:rgba(31,215,155,0.35); --purple:#A78BFA; --purple-dim:rgba(167,139,250,0.15);
+      --gold:#E6C46A; --red:#FF7A7A; --text:#EAF1EE; --text-mid:#8FA39B; --text-dim:#4A5E52;
+    }
+    html,body{height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;}
+
+    /* ── OUTER LAYOUT ── */
+    .stage{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100vh;padding:2rem 1rem 4rem;}
+    .stage-title{font-size:0.75rem;font-weight:700;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.4rem;opacity:0;}
+    .stage-sub{font-size:1.5rem;font-weight:800;letter-spacing:-0.5px;margin-bottom:2rem;opacity:0;}
+    .stage-title,.stage-sub{animation:fadeUp 0.6s 0.2s forwards;}
+
+    /* ── PHONE FRAME ── */
+    .phone{width:320px;min-height:640px;background:var(--bg);border-radius:40px;border:1.5px solid var(--border);overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.7),0 0 0 1px rgba(31,215,155,0.05);position:relative;opacity:0;animation:fadeUp 0.6s 0.5s forwards;}
+    .status-bar{height:40px;background:var(--bg);display:flex;align-items:center;justify-content:space-between;padding:0 1.4rem;flex-shrink:0;}
+    .status-time{font-size:0.75rem;font-weight:700;}
+    .status-icons{font-size:0.7rem;color:var(--text-mid);}
+
+    /* ── SCREENS ── */
+    .screen{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transition:opacity 0.4s;pointer-events:none;}
+    .screen.active{opacity:1;pointer-events:auto;}
+    .screen-body{flex:1;overflow:hidden;padding:0 1rem 1rem;}
+
+    /* ── APP BAR ── */
+    .appbar{height:52px;display:flex;align-items:center;padding:0 1rem;gap:0.6rem;flex-shrink:0;}
+    .appbar-title{font-size:1rem;font-weight:700;flex:1;}
+    .appbar-icon{width:32px;height:32px;border-radius:8px;background:var(--green-dim);display:flex;align-items:center;justify-content:center;font-size:0.9rem;cursor:pointer;}
+
+    /* ── HERO CARD ── */
+    .hero-card{background:linear-gradient(135deg,#103328,#0C1814);border:1px solid var(--border);border-radius:20px;padding:1.2rem 1.4rem;margin-bottom:1rem;}
+    .hero-label{font-size:0.65rem;color:var(--text-mid);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;}
+    .hero-amount{font-size:2.2rem;font-weight:800;letter-spacing:-1px;color:var(--text);line-height:1;}
+    .hero-sub{font-size:0.72rem;color:var(--text-mid);margin-top:0.3rem;}
+    .hero-row{display:flex;gap:0.8rem;margin-top:1rem;}
+    .hero-stat{flex:1;background:rgba(255,255,255,0.04);border-radius:10px;padding:0.6rem 0.7rem;}
+    .hero-stat-label{font-size:0.6rem;color:var(--text-mid);text-transform:uppercase;letter-spacing:0.06em;}
+    .hero-stat-val{font-size:0.95rem;font-weight:700;margin-top:0.1rem;}
+    .income{color:var(--green);}
+    .expense{color:var(--purple);}
+
+    /* ── CHART ── */
+    .chart-wrap{margin-bottom:1rem;}
+    .chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;}
+    .chart-title{font-size:0.75rem;font-weight:600;color:var(--text-mid);}
+    .chart-legend{display:flex;gap:0.7rem;}
+    .legend-dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:0.2rem;vertical-align:middle;}
+    .legend-label{font-size:0.6rem;color:var(--text-mid);}
+    .chart-svg-wrap{width:100%;height:80px;}
+    svg.chart{width:100%;height:80px;}
+
+    /* ── SECTION TITLE ── */
+    .sec-title{font-size:0.68rem;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:0.08em;margin:0.8rem 0 0.5rem;}
+
+    /* ── LIST ITEM ── */
+    .list-item{display:flex;align-items:center;gap:0.75rem;padding:0.65rem 0;border-bottom:1px solid var(--border);}
+    .list-item:last-child{border-bottom:none;}
+    .item-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+    .item-info{flex:1;min-width:0;}
+    .item-name{font-size:0.82rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .item-sub{font-size:0.68rem;color:var(--text-mid);margin-top:0.1rem;}
+    .item-val{font-size:0.85rem;font-weight:700;text-align:right;flex-shrink:0;}
+    .item-val.pos{color:var(--green);}
+    .item-val.neg{color:var(--purple);}
+
+    /* ── PROGRESS BAR ── */
+    .progress-wrap{margin-bottom:0.8rem;}
+    .progress-head{display:flex;justify-content:space-between;margin-bottom:0.3rem;}
+    .progress-name{font-size:0.78rem;font-weight:600;}
+    .progress-pct{font-size:0.68rem;color:var(--text-mid);}
+    .progress-bar{height:6px;background:var(--surface-hi);border-radius:3px;overflow:hidden;}
+    .progress-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.4,0,.2,1);}
+
+    /* ── FORM ── */
+    .form-field{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:0.7rem 1rem;margin-bottom:0.7rem;}
+    .form-label{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-mid);margin-bottom:0.2rem;}
+    .form-val{font-size:0.9rem;font-weight:600;}
+    .form-val.big{font-size:1.8rem;font-weight:800;color:var(--green);}
+    .form-row{display:flex;gap:0.6rem;}
+    .form-row .form-field{flex:1;}
+    .btn-primary{width:100%;padding:0.8rem;background:var(--green);color:#00251A;font-weight:700;font-size:0.9rem;border:none;border-radius:12px;margin-top:0.5rem;cursor:pointer;box-shadow:0 4px 20px var(--green-glow);}
+
+    /* ── FAB ── */
+    .fab{position:absolute;bottom:4.5rem;right:1rem;width:48px;height:48px;border-radius:50%;background:var(--green);color:#00251A;font-size:1.4rem;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px var(--green-glow);z-index:10;}
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav{height:58px;background:var(--surface);border-top:1px solid var(--border);display:flex;align-items:center;padding:0 0.5rem;flex-shrink:0;}
+    .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:0.15rem;cursor:pointer;padding:0.3rem;border-radius:8px;transition:background 0.2s;}
+    .nav-item:hover{background:rgba(255,255,255,0.04);}
+    .nav-icon{font-size:1.1rem;opacity:0.4;}
+    .nav-label{font-size:0.55rem;color:var(--text-mid);font-weight:500;}
+    .nav-item.active .nav-icon{opacity:1;}
+    .nav-item.active .nav-label{color:var(--green);font-weight:700;}
+
+    /* ── CHIP ── */
+    .chip-row{display:flex;gap:0.5rem;margin-bottom:0.8rem;flex-wrap:wrap;}
+    .chip{padding:0.3rem 0.8rem;border-radius:20px;font-size:0.7rem;font-weight:600;background:var(--surface-hi);color:var(--text-mid);cursor:pointer;transition:all 0.2s;}
+    .chip.active{background:var(--green-dim);color:var(--green);}
+
+    /* ── BADGE ── */
+    .badge{display:inline-block;padding:0.15rem 0.5rem;border-radius:20px;font-size:0.6rem;font-weight:700;}
+    .badge-green{background:var(--green-dim);color:var(--green);}
+    .badge-purple{background:var(--purple-dim);color:var(--purple);}
+    .badge-gold{background:rgba(230,196,106,0.15);color:var(--gold);}
+
+    /* ── ACCOUNTS SCREEN ── */
+    .account-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1rem 1.2rem;margin-bottom:0.6rem;}
+    .account-top{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.8rem;}
+    .account-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+    .account-name{font-size:0.85rem;font-weight:600;flex:1;}
+    .account-type{font-size:0.65rem;color:var(--text-mid);}
+    .account-bal{font-size:1.3rem;font-weight:800;}
+
+    /* ── GOALS ── */
+    .goal-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1rem 1.2rem;margin-bottom:0.6rem;}
+    .goal-top{display:flex;justify-content:space-between;margin-bottom:0.6rem;}
+    .goal-name{font-size:0.85rem;font-weight:700;}
+    .goal-icon{font-size:1.2rem;}
+    .goal-amount{font-size:1.1rem;font-weight:800;color:var(--green);}
+    .goal-target{font-size:0.65rem;color:var(--text-mid);}
+
+    /* ── NARRATOR TOAST ── */
+    .toast{position:absolute;bottom:5rem;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(18,26,22,0.95);border:1px solid var(--border);border-radius:12px;padding:0.55rem 1rem;font-size:0.72rem;color:var(--text-mid);white-space:nowrap;opacity:0;transition:all 0.4s;z-index:50;backdrop-filter:blur(8px);}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+    .toast strong{color:var(--green);}
+
+    /* ── OUTER CONTROLS ── */
+    .controls{margin-top:1.5rem;display:flex;gap:0.6rem;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp 0.6s 0.8s forwards;}
+    .ctrl-btn{padding:0.45rem 1rem;border-radius:20px;font-size:0.78rem;font-weight:600;border:1px solid var(--border);background:var(--surface);color:var(--text-mid);cursor:pointer;transition:all 0.2s;}
+    .ctrl-btn:hover,.ctrl-btn.active{background:var(--green-dim);border-color:var(--green);color:var(--green);}
+    .step-indicator{display:flex;gap:0.4rem;align-items:center;margin-top:1rem;opacity:0;animation:fadeUp 0.6s 0.9s forwards;}
+    .step-dot{width:6px;height:6px;border-radius:50%;background:var(--border);transition:all 0.3s;}
+    .step-dot.active{background:var(--green);width:18px;border-radius:3px;}
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+    @keyframes pulse{0%,100%{box-shadow:0 4px 20px var(--green-glow);}50%{box-shadow:0 4px 32px rgba(31,215,155,0.6);}}
+    .fab{animation:pulse 2s infinite;}
+    @keyframes countUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+    .hero-amount{animation:countUp 0.5s 0.8s both;}
+  </style>
+</head>
+<body>
+<div class="stage">
+  <p class="stage-title">Product Demo</p>
+  <h2 class="stage-sub">Maytay Finance</h2>
+
+  <div class="phone" id="phone">
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+      <span class="status-time">9:41</span>
+      <span class="status-icons">▲ ◉ ▐▐</span>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SCREEN 1 — DASHBOARD
+    ══════════════════════════════════════════ -->
+    <div class="screen active" id="s-dashboard">
+      <div class="appbar">
+        <span style="font-size:1rem;">🌿</span>
+        <span class="appbar-title">Personal</span>
+        <div class="appbar-icon">🔔</div>
+        <div class="appbar-icon">☰</div>
+      </div>
+      <div class="screen-body" style="overflow-y:auto;">
+        <!-- Hero -->
+        <div class="hero-card">
+          <div class="hero-label">Net Balance</div>
+          <div class="hero-amount" id="heroAmt">$8,342.50</div>
+          <div class="hero-sub">Updated just now</div>
+          <div class="hero-row">
+            <div class="hero-stat">
+              <div class="hero-stat-label">Income</div>
+              <div class="hero-stat-val income">+$5,200</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-label">Expenses</div>
+              <div class="hero-stat-val expense">-$1,857</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-label">Saved</div>
+              <div class="hero-stat-val" style="color:var(--gold);">$1,100</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart -->
+        <div class="chart-wrap">
+          <div class="chart-head">
+            <span class="chart-title">Last 6 months</span>
+            <div class="chart-legend">
+              <span><span class="legend-dot" style="background:var(--green);"></span><span class="legend-label">Income</span></span>
+              <span><span class="legend-dot" style="background:var(--purple);"></span><span class="legend-label">Expenses</span></span>
+            </div>
+          </div>
+          <div class="chart-svg-wrap">
+            <svg class="chart" viewBox="0 0 280 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="gIncome" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#1FD79B" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#1FD79B" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="gExpense" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#A78BFA" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#A78BFA" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- Income area -->
+              <path d="M0,55 L46,40 L92,48 L138,25 L184,32 L230,18 L280,22 L280,80 L0,80 Z" fill="url(#gIncome)"/>
+              <polyline points="0,55 46,40 92,48 138,25 184,32 230,18 280,22" stroke="#1FD79B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <circle cx="280" cy="22" r="4" fill="#1FD79B" filter="drop-shadow(0 0 4px #1FD79B)"/>
+              <!-- Expense area -->
+              <path d="M0,68 L46,62 L92,65 L138,58 L184,63 L230,56 L280,60 L280,80 L0,80 Z" fill="url(#gExpense)"/>
+              <polyline points="0,68 46,62 92,65 138,58 184,63 230,56 280,60" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-dasharray="4,3"/>
+              <!-- Month labels -->
+              <text x="0" y="78" font-size="7" fill="#4A5E52">Dec</text>
+              <text x="42" y="78" font-size="7" fill="#4A5E52">Jan</text>
+              <text x="88" y="78" font-size="7" fill="#4A5E52">Feb</text>
+              <text x="134" y="78" font-size="7" fill="#4A5E52">Mar</text>
+              <text x="180" y="78" font-size="7" fill="#4A5E52">Apr</text>
+              <text x="226" y="78" font-size="7" fill="#4A5E52">May</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="sec-title">Recent transactions</div>
+        <div>
+          <div class="list-item">
+            <div class="item-icon" style="background:rgba(31,215,155,0.12);">💼</div>
+            <div class="item-info">
+              <div class="item-name">Freelance Payment</div>
+              <div class="item-sub">Today · Work</div>
+            </div>
+            <div class="item-val pos">+$1,800</div>
+          </div>
+          <div class="list-item">
+            <div class="item-icon" style="background:rgba(167,139,250,0.12);">🛒</div>
+            <div class="item-info">
+              <div class="item-name">Whole Foods Market</div>
+              <div class="item-sub">Yesterday · Groceries</div>
+            </div>
+            <div class="item-val neg">-$94.30</div>
+          </div>
+          <div class="list-item">
+            <div class="item-icon" style="background:rgba(167,139,250,0.12);">⚡</div>
+            <div class="item-info">
+              <div class="item-name">Electric Bill</div>
+              <div class="item-sub">May 28 · Utilities</div>
+            </div>
+            <div class="item-val neg">-$112.00</div>
+          </div>
+          <div class="list-item">
+            <div class="item-icon" style="background:rgba(230,196,106,0.12);">🎯</div>
+            <div class="item-info">
+              <div class="item-name">Emergency Fund</div>
+              <div class="item-sub">May 27 · Savings</div>
+            </div>
+            <div class="item-val" style="color:var(--gold);">+$500</div>
+          </div>
+        </div>
+      </div>
+      <div class="fab" onclick="nextScreen()">+</div>
+      <div class="bottom-nav">
+        <div class="nav-item active" onclick="goScreen('dashboard')"><div class="nav-icon">📊</div><div class="nav-label">Overview</div></div>
+        <div class="nav-item" onclick="goScreen('accounts')"><div class="nav-icon">🏦</div><div class="nav-label">Accounts</div></div>
+        <div class="nav-item" onclick="goScreen('transactions')"><div class="nav-icon">↕️</div><div class="nav-label">Transactions</div></div>
+        <div class="nav-item" onclick="goScreen('goals')"><div class="nav-icon">🎯</div><div class="nav-label">Goals</div></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SCREEN 2 — ADD TRANSACTION FORM
+    ══════════════════════════════════════════ -->
+    <div class="screen" id="s-form">
+      <div class="appbar">
+        <div class="appbar-icon" onclick="goScreen('dashboard')" style="cursor:pointer;">←</div>
+        <span class="appbar-title">New Transaction</span>
+      </div>
+      <div class="screen-body" style="overflow-y:auto;">
+        <div class="chip-row">
+          <div class="chip active">Expense</div>
+          <div class="chip" onclick="this.parentNode.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));this.classList.add('active')">Income</div>
+          <div class="chip" onclick="this.parentNode.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));this.classList.add('active')">Transfer</div>
+        </div>
+        <div class="form-field">
+          <div class="form-label">Amount</div>
+          <div class="form-val big">$94.30</div>
+        </div>
+        <div class="form-field">
+          <div class="form-label">Description</div>
+          <div class="form-val">Whole Foods Market</div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <div class="form-label">Category</div>
+            <div class="form-val" style="font-size:0.82rem;">🛒 Groceries</div>
+          </div>
+          <div class="form-field">
+            <div class="form-label">Account</div>
+            <div class="form-val" style="font-size:0.82rem;">💳 Chase</div>
+          </div>
+        </div>
+        <div class="form-field">
+          <div class="form-label">Date</div>
+          <div class="form-val" style="font-size:0.82rem;">May 29, 2026</div>
+        </div>
+        <div class="form-field">
+          <div class="form-label">Life Area</div>
+          <div class="form-val" style="font-size:0.82rem;">🌿 Personal</div>
+        </div>
+        <button class="btn-primary" onclick="saveTransaction()">Save Transaction</button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SCREEN 3 — ACCOUNTS
+    ══════════════════════════════════════════ -->
+    <div class="screen" id="s-accounts">
+      <div class="appbar">
+        <span class="appbar-title">Accounts</span>
+        <div class="appbar-icon">+</div>
+      </div>
+      <div class="screen-body" style="overflow-y:auto;">
+        <div class="hero-card" style="text-align:center;margin-bottom:1rem;">
+          <div class="hero-label">Total Net Worth</div>
+          <div class="hero-amount" style="font-size:1.8rem;">$24,850.75</div>
+          <div class="hero-sub">Across 4 accounts</div>
+        </div>
+        <div class="sec-title">My accounts</div>
+        <div class="account-card">
+          <div class="account-top">
+            <div class="account-dot" style="background:#1FD79B;"></div>
+            <div class="account-name">Chase Checking</div>
+            <span class="badge badge-green">Checking</span>
+          </div>
+          <div class="account-bal income">$8,342.50</div>
+        </div>
+        <div class="account-card">
+          <div class="account-top">
+            <div class="account-dot" style="background:#60A5FA;"></div>
+            <div class="account-name">Wells Fargo Savings</div>
+            <span class="badge" style="background:rgba(96,165,250,0.12);color:#60A5FA;">Savings</span>
+          </div>
+          <div class="account-bal" style="color:#60A5FA;">$14,208.25</div>
+        </div>
+        <div class="account-card">
+          <div class="account-top">
+            <div class="account-dot" style="background:#A78BFA;"></div>
+            <div class="account-name">Amex Platinum</div>
+            <span class="badge badge-purple">Credit</span>
+          </div>
+          <div class="account-bal expense">-$1,850.00</div>
+        </div>
+        <div class="account-card">
+          <div class="account-top">
+            <div class="account-dot" style="background:#E6C46A;"></div>
+            <div class="account-name">Cash</div>
+            <span class="badge badge-gold">Cash</span>
+          </div>
+          <div class="account-bal" style="color:var(--gold);">$150.00</div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item" onclick="goScreen('dashboard')"><div class="nav-icon">📊</div><div class="nav-label">Overview</div></div>
+        <div class="nav-item active" onclick="goScreen('accounts')"><div class="nav-icon">🏦</div><div class="nav-label">Accounts</div></div>
+        <div class="nav-item" onclick="goScreen('transactions')"><div class="nav-icon">↕️</div><div class="nav-label">Transactions</div></div>
+        <div class="nav-item" onclick="goScreen('goals')"><div class="nav-icon">🎯</div><div class="nav-label">Goals</div></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SCREEN 4 — TRANSACTIONS
+    ══════════════════════════════════════════ -->
+    <div class="screen" id="s-transactions">
+      <div class="appbar">
+        <span class="appbar-title">Transactions</span>
+        <div class="appbar-icon">🔍</div>
+      </div>
+      <div class="screen-body" style="overflow-y:auto;">
+        <div class="chip-row">
+          <div class="chip active">All</div>
+          <div class="chip" onclick="this.parentNode.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));this.classList.add('active')">Income</div>
+          <div class="chip" onclick="this.parentNode.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));this.classList.add('active')">Expenses</div>
+        </div>
+        <div class="sec-title">May 2026</div>
+        <div class="list-item">
+          <div class="item-icon" style="background:rgba(31,215,155,0.12);">💼</div>
+          <div class="item-info"><div class="item-name">Freelance Payment</div><div class="item-sub">May 29 · Work</div></div>
+          <div><div class="item-val pos">+$1,800</div><span class="badge badge-green" style="float:right;margin-top:2px;">Income</span></div>
+        </div>
+        <div class="list-item">
+          <div class="item-icon" style="background:rgba(167,139,250,0.12);">🛒</div>
+          <div class="item-info"><div class="item-name">Whole Foods</div><div class="item-sub">May 29 · Groceries</div></div>
+          <div><div class="item-val neg">-$94.30</div></div>
+        </div>
+        <div class="list-item">
+          <div class="item-icon" style="background:rgba(167,139,250,0.12);">⚡</div>
+          <div class="item-info"><div class="item-name">Electric Bill</div><div class="item-sub">May 28 · Utilities</div></div>
+          <div><div class="item-val neg">-$112.00</div></div>
+        </div>
+        <div class="list-item">
+          <div class="item-icon" style="background:rgba(230,196,106,0.12);">🏠</div>
+          <div class="item-info"><div class="item-name">Rent</div><div class="item-sub">May 1 · Housing</div></div>
+          <div><div class="item-val neg">-$1,450.00</div></div>
+        </div>
+        <div class="list-item">
+          <div class="item-icon" style="background:rgba(31,215,155,0.12);">💰</div>
+          <div class="item-info"><div class="item-name">Salary</div><div class="item-sub">May 1 · Income</div></div>
+          <div><div class="item-val pos">+$3,400</div><span class="badge badge-green" style="float:right;margin-top:2px;">Income</span></div>
+        </div>
+        <div class="list-item">
+          <div class="item-icon" style="background:rgba(167,139,250,0.12);">🍔</div>
+          <div class="item-info"><div class="item-name">Chipotle</div><div class="item-sub">Apr 30 · Dining</div></div>
+          <div><div class="item-val neg">-$18.50</div></div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item" onclick="goScreen('dashboard')"><div class="nav-icon">📊</div><div class="nav-label">Overview</div></div>
+        <div class="nav-item" onclick="goScreen('accounts')"><div class="nav-icon">🏦</div><div class="nav-label">Accounts</div></div>
+        <div class="nav-item active" onclick="goScreen('transactions')"><div class="nav-icon">↕️</div><div class="nav-label">Transactions</div></div>
+        <div class="nav-item" onclick="goScreen('goals')"><div class="nav-icon">🎯</div><div class="nav-label">Goals</div></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         SCREEN 5 — GOALS
+    ══════════════════════════════════════════ -->
+    <div class="screen" id="s-goals">
+      <div class="appbar">
+        <span class="appbar-title">Financial Goals</span>
+        <div class="appbar-icon">+</div>
+      </div>
+      <div class="screen-body" style="overflow-y:auto;">
+        <div class="sec-title">In progress</div>
+
+        <div class="goal-card">
+          <div class="goal-top">
+            <div><div class="goal-name">Emergency Fund</div><div class="goal-target">Goal: $10,000</div></div>
+            <div class="goal-icon">🛡️</div>
+          </div>
+          <div class="goal-amount">$7,400</div>
+          <div class="progress-wrap" style="margin-top:0.6rem;">
+            <div class="progress-head"><span style="font-size:0.65rem;color:var(--text-mid);">74% complete</span><span style="font-size:0.65rem;color:var(--text-mid);">$2,600 left</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:74%;background:var(--green);"></div></div>
+          </div>
+        </div>
+
+        <div class="goal-card">
+          <div class="goal-top">
+            <div><div class="goal-name">Vacation Fund</div><div class="goal-target">Goal: $3,500</div></div>
+            <div class="goal-icon">✈️</div>
+          </div>
+          <div class="goal-amount" style="color:var(--purple);">$1,820</div>
+          <div class="progress-wrap" style="margin-top:0.6rem;">
+            <div class="progress-head"><span style="font-size:0.65rem;color:var(--text-mid);">52% complete</span><span style="font-size:0.65rem;color:var(--text-mid);">$1,680 left</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:52%;background:var(--purple);"></div></div>
+          </div>
+        </div>
+
+        <div class="goal-card">
+          <div class="goal-top">
+            <div><div class="goal-name">New Laptop</div><div class="goal-target">Goal: $2,000</div></div>
+            <div class="goal-icon">💻</div>
+          </div>
+          <div class="goal-amount" style="color:var(--gold);">$340</div>
+          <div class="progress-wrap" style="margin-top:0.6rem;">
+            <div class="progress-head"><span style="font-size:0.65rem;color:var(--text-mid);">17% complete</span><span style="font-size:0.65rem;color:var(--text-mid);">$1,660 left</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:17%;background:var(--gold);"></div></div>
+          </div>
+        </div>
+
+        <div class="sec-title" style="margin-top:1rem;">Completed 🎉</div>
+        <div class="goal-card" style="opacity:0.6;">
+          <div class="goal-top">
+            <div><div class="goal-name">Car Down Payment</div><div class="goal-target">Completed Apr 2026</div></div>
+            <div class="goal-icon">🚗</div>
+          </div>
+          <div class="goal-amount" style="color:var(--text-mid);">$5,000 / $5,000</div>
+          <div class="progress-wrap" style="margin-top:0.6rem;">
+            <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--text-dim);"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-nav">
+        <div class="nav-item" onclick="goScreen('dashboard')"><div class="nav-icon">📊</div><div class="nav-label">Overview</div></div>
+        <div class="nav-item" onclick="goScreen('accounts')"><div class="nav-icon">🏦</div><div class="nav-label">Accounts</div></div>
+        <div class="nav-item" onclick="goScreen('transactions')"><div class="nav-icon">↕️</div><div class="nav-label">Transactions</div></div>
+        <div class="nav-item active" onclick="goScreen('goals')"><div class="nav-icon">🎯</div><div class="nav-label">Goals</div></div>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+  </div><!-- /phone -->
+
+  <!-- CONTROLS -->
+  <div class="controls">
+    <button class="ctrl-btn active" id="btn-dashboard" onclick="goScreen('dashboard')">Overview</button>
+    <button class="ctrl-btn" id="btn-form" onclick="goScreen('form')">Add Transaction</button>
+    <button class="ctrl-btn" id="btn-accounts" onclick="goScreen('accounts')">Accounts</button>
+    <button class="ctrl-btn" id="btn-transactions" onclick="goScreen('transactions')">Transactions</button>
+    <button class="ctrl-btn" id="btn-goals" onclick="goScreen('goals')">Goals</button>
+  </div>
+
+  <div class="step-indicator">
+    <div class="step-dot active" id="dot-dashboard"></div>
+    <div class="step-dot" id="dot-form"></div>
+    <div class="step-dot" id="dot-accounts"></div>
+    <div class="step-dot" id="dot-transactions"></div>
+    <div class="step-dot" id="dot-goals"></div>
+  </div>
+</div>
+
+<script>
+  const screens = ['dashboard','form','accounts','transactions','goals'];
+  let current = 'dashboard';
+
+  function goScreen(name){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('.ctrl-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.step-dot').forEach(d=>d.classList.remove('active'));
+    document.getElementById('s-'+name).classList.add('active');
+    const btn = document.getElementById('btn-'+name);
+    if(btn) btn.classList.add('active');
+    const dot = document.getElementById('dot-'+name);
+    if(dot) dot.classList.add('active');
+    current = name;
+  }
+
+  function nextScreen(){
+    const idx = screens.indexOf(current);
+    goScreen(screens[(idx+1)%screens.length]);
+  }
+
+  function saveTransaction(){
+    goScreen('dashboard');
+    showToast('<strong>Transaction saved!</strong> Balance updated.');
+  }
+
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.innerHTML = msg;
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2800);
+  }
+
+  // Auto-tour
+  let tourStep = 0;
+  const tour = ['dashboard','form','accounts','transactions','goals'];
+  const tourMsgs = [
+    'Overview of your <strong>net balance</strong> and recent activity',
+    'Quickly <strong>log any transaction</strong> in seconds',
+    'All your <strong>accounts</strong> in one place',
+    '<strong>Filter and search</strong> your full history',
+    'Track your <strong>savings goals</strong> visually'
+  ];
+  let tourTimer;
+
+  function runTour(){
+    tourTimer = setInterval(()=>{
+      tourStep = (tourStep+1)%tour.length;
+      goScreen(tour[tourStep]);
+      showToast(tourMsgs[tourStep]);
+    }, 3800);
+  }
+
+  // Start tour after a short delay
+  setTimeout(()=>{
+    showToast(tourMsgs[0]);
+    runTour();
+  }, 1500);
+
+  // Stop tour on manual interaction
+  document.querySelectorAll('.ctrl-btn,.nav-item,.fab').forEach(el=>{
+    el.addEventListener('click',()=>{
+      clearInterval(tourTimer);
+    });
+  });
+</script>
+</body>
+</html>
