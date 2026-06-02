@@ -52,6 +52,14 @@
     .trust-mark{width:84px;height:84px;object-fit:cover;border-radius:20px;margin-bottom:1.2rem;box-shadow:0 18px 60px rgba(47,125,87,0.2);}
     .trust-inner h2{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:830;letter-spacing:-0.5px;line-height:1.12;margin-bottom:1rem;}
     .trust-inner p{color:var(--text-muted);line-height:1.75;}
+    .downloads-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-top:1.6rem;}
+    .download-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:1.4rem;display:flex;flex-direction:column;gap:0.8rem;min-height:100%;}
+    .download-card h3{font-size:1.02rem;font-weight:780;}
+    .download-card p{font-size:0.88rem;color:var(--text-muted);line-height:1.55;}
+    .download-card .btn-primary,.download-card .btn-secondary{width:100%;margin-top:auto;}
+    .downloads-note{margin-top:1.3rem;color:var(--text-dim);font-size:0.86rem;line-height:1.6;}
+    .downloads-note a{color:var(--green-bright);text-decoration:none;}
+    .downloads-note a:hover{text-decoration:underline;}
     .pricing-layout{display:grid;grid-template-columns:0.95fr 1.05fr;gap:1.4rem;align-items:start;}
     .price-card{background:var(--bg2);border:1px solid rgba(110,231,183,0.24);border-radius:20px;padding:2rem;box-shadow:0 20px 60px rgba(0,0,0,0.22);}
     .price-card h3{font-size:1rem;text-transform:uppercase;letter-spacing:0.09em;color:var(--green-bright);margin-bottom:1rem;}
@@ -85,6 +93,7 @@
   </a>
   <ul class="nav-links">
     <li class="hide-sm"><a href="#features" data-i18n="nav_features">Funciones</a></li>
+    <li class="hide-sm"><a href="#downloads" data-i18n="nav_downloads">Descargas</a></li>
     <li class="hide-sm"><a href="#pricing" data-i18n="nav_pricing">Precio</a></li>
     <li class="hide-sm"><a href="#faq" data-i18n="nav_faq">Preguntas</a></li>
     <li><button class="lang-toggle" id="langBtn" onclick="toggleLang()">EN</button></li>
@@ -132,6 +141,40 @@
   </div>
 </section>
 
+<section class="section" id="downloads">
+  <p class="section-label" data-i18n="downloads_label">Descargas</p>
+  <h2 class="section-title" data-i18n="downloads_title">Instaladores de Church Ledger 1.0.0.</h2>
+  <p class="section-sub" data-i18n="downloads_sub">Elige el instalador para tu sistema. La licencia anual se activa dentro de la aplicación después de instalar.</p>
+  <div class="downloads-grid">
+    <div class="download-card">
+      <h3 data-i18n="download_mac_title">macOS Apple Silicon</h3>
+      <p data-i18n="download_mac_desc">DMG firmado y notarizado para Mac con procesador Apple Silicon.</p>
+      <a class="btn-primary" href="downloads/church-ledger/1.0.0/church-ledger-1.0.0-macos-apple-silicon.dmg" download data-i18n="download_mac_cta">Descargar DMG</a>
+    </div>
+    <div class="download-card">
+      <h3 data-i18n="download_windows_title">Windows 64-bit</h3>
+      <p data-i18n="download_windows_desc">Instalador NSIS para Windows x64. Esta build todavía no está firmada con certificado Authenticode.</p>
+      <a class="btn-primary" href="downloads/church-ledger/1.0.0/church-ledger-1.0.0-windows-x64-setup.exe" download data-i18n="download_windows_cta">Descargar EXE</a>
+    </div>
+    <div class="download-card">
+      <h3 data-i18n="download_linux_deb_title">Linux DEB</h3>
+      <p data-i18n="download_linux_deb_desc">Paquete para Ubuntu, Debian y distribuciones compatibles.</p>
+      <a class="btn-secondary" href="downloads/church-ledger/1.0.0/church-ledger-1.0.0-linux-amd64.deb" download data-i18n="download_linux_deb_cta">Descargar DEB</a>
+    </div>
+    <div class="download-card">
+      <h3 data-i18n="download_linux_rpm_title">Linux RPM</h3>
+      <p data-i18n="download_linux_rpm_desc">Paquete para Fedora, RHEL y distribuciones compatibles.</p>
+      <a class="btn-secondary" href="downloads/church-ledger/1.0.0/church-ledger-1.0.0-linux-x86_64.rpm" download data-i18n="download_linux_rpm_cta">Descargar RPM</a>
+    </div>
+    <div class="download-card">
+      <h3 data-i18n="download_linux_appimage_title">Linux AppImage</h3>
+      <p data-i18n="download_linux_appimage_desc">Archivo portable para Linux AMD64. Dale permiso de ejecución antes de abrirlo.</p>
+      <a class="btn-secondary" href="downloads/church-ledger/1.0.0/church-ledger-1.0.0-linux-amd64.AppImage" download data-i18n="download_linux_appimage_cta">Descargar AppImage</a>
+    </div>
+  </div>
+  <p class="downloads-note" data-i18n="downloads_note">Verificación: descarga el archivo de <a href="downloads/church-ledger/1.0.0/SHA256SUMS.txt">checksums SHA-256</a>. La versión de Mac App Store se publicará desde Apple cuando esté aprobada.</p>
+</section>
+
 <section class="section" id="pricing">
   <p class="section-label" data-i18n="pricing_label">Licencia anual</p>
   <h2 class="section-title" data-i18n="pricing_title">Precio simple para empezar con seriedad.</h2>
@@ -145,13 +188,13 @@
     </div>
     <div class="release-note">
       <h3 data-i18n="release_title">Estado de lanzamiento</h3>
-      <p data-i18n="release_p1">La versión macOS actual está firmada con Developer ID y notarizada por Apple. Windows se preparará después con su instalador firmado.</p>
+      <p data-i18n="release_p1">La versión macOS actual está firmada con Developer ID y notarizada por Apple. Windows y Linux están disponibles para prueba y distribución inicial.</p>
       <ul class="checklist">
         <li><span class="check">✓</span><span data-i18n="check_1">Modo de solo lectura si la licencia vence</span></li>
         <li><span class="check">✓</span><span data-i18n="check_2">Backups cifrados con passphrase del usuario</span></li>
         <li><span class="check">✓</span><span data-i18n="check_3">Firma y notarización para macOS</span></li>
       </ul>
-      <p class="hash">SHA-256: 221c1b0fac3344cacdb614abba292e6352a874cc487de2d4fd7ce9ffd21b9106</p>
+      <p class="hash">SHA-256 macOS DMG: e8d9446a8b12a9dc475f5fa011ce51c4b290dba05bbf3d9964b73ea82514afa9</p>
     </div>
   </div>
 </section>
@@ -165,7 +208,7 @@
     <div class="faq-item"><h3 data-i18n="q1">¿Dónde se guardan los datos?</h3><p data-i18n="a1">En la computadora del usuario. La iglesia debe conservar backups cifrados y sus passphrases.</p></div>
     <div class="faq-item"><h3 data-i18n="q2">¿Qué pasa si vence la licencia?</h3><p data-i18n="a2">La app permite ver, imprimir, exportar, respaldar y restaurar en modo de solo lectura.</p></div>
     <div class="faq-item"><h3 data-i18n="q3">¿Qué pasa si se pierde la contraseña?</h3><p data-i18n="a3">Se requiere la clave de recuperación. No hay puertas traseras para entrar a los datos.</p></div>
-    <div class="faq-item"><h3 data-i18n="q4">¿Incluye Windows?</h3><p data-i18n="a4">La versión macOS está lista para lanzamiento. Windows se publicará después de completar firma e instalación.</p></div>
+    <div class="faq-item"><h3 data-i18n="q4">¿Incluye Windows y Linux?</h3><p data-i18n="a4">Sí. Hay instaladores para Windows x64 y paquetes Linux DEB, RPM y AppImage. Windows todavía no está firmado con certificado Authenticode.</p></div>
   </div>
 </section>
 
@@ -182,7 +225,7 @@
 <script>
 const T = {
   es: {
-    nav_features:"Funciones", nav_pricing:"Precio", nav_faq:"Preguntas", nav_cta:"Solicitar licencia",
+    nav_features:"Funciones", nav_downloads:"Descargas", nav_pricing:"Precio", nav_faq:"Preguntas", nav_cta:"Solicitar licencia",
     hero_label:"App de escritorio para iglesias",
     hero_desc:"Tesorería, donaciones, reportes, auditoría local y backups cifrados para iglesias que necesitan orden financiero sin depender de una nube.",
     hero_buy:"Solicitar licencia anual", hero_learn:"Ver funciones",
@@ -197,20 +240,28 @@ const T = {
     f6_title:"Sin puertas traseras", f6_desc:"La recuperación depende de claves guardadas por el administrador. Nadie puede saltarse la seguridad.",
     trust_title:"Los datos de la iglesia se quedan en la computadora de la iglesia.",
     trust_desc:"Church Ledger fue diseñado para uso local. La iglesia conserva la responsabilidad de sus backups, contraseñas, claves de recuperación y archivos exportados.",
+    downloads_label:"Descargas", downloads_title:"Instaladores de Church Ledger 1.0.0.",
+    downloads_sub:"Elige el instalador para tu sistema. La licencia anual se activa dentro de la aplicación después de instalar.",
+    download_mac_title:"macOS Apple Silicon", download_mac_desc:"DMG firmado y notarizado para Mac con procesador Apple Silicon.", download_mac_cta:"Descargar DMG",
+    download_windows_title:"Windows 64-bit", download_windows_desc:"Instalador NSIS para Windows x64. Esta build todavía no está firmada con certificado Authenticode.", download_windows_cta:"Descargar EXE",
+    download_linux_deb_title:"Linux DEB", download_linux_deb_desc:"Paquete para Ubuntu, Debian y distribuciones compatibles.", download_linux_deb_cta:"Descargar DEB",
+    download_linux_rpm_title:"Linux RPM", download_linux_rpm_desc:"Paquete para Fedora, RHEL y distribuciones compatibles.", download_linux_rpm_cta:"Descargar RPM",
+    download_linux_appimage_title:"Linux AppImage", download_linux_appimage_desc:"Archivo portable para Linux AMD64. Dale permiso de ejecución antes de abrirlo.", download_linux_appimage_cta:"Descargar AppImage",
+    downloads_note:"Verificación: descarga el archivo de <a href=\"downloads/church-ledger/1.0.0/SHA256SUMS.txt\">checksums SHA-256</a>. La versión de Mac App Store se publicará desde Apple cuando esté aprobada.",
     pricing_label:"Licencia anual", pricing_title:"Precio simple para empezar con seriedad.",
     pricing_sub:"La licencia anual incluye las funciones principales, seguridad, reportes, impresión, exportación y backups cifrados.",
     price_name:"Church Ledger Annual License", price_period:"/ año", price_note:"Una licencia anual por iglesia. Incluye 30 días de prueba local antes de activar.", price_cta:"Solicitar licencia",
-    release_title:"Estado de lanzamiento", release_p1:"La versión macOS actual está firmada con Developer ID y notarizada por Apple. Windows se preparará después con su instalador firmado.",
+    release_title:"Estado de lanzamiento", release_p1:"La versión macOS actual está firmada con Developer ID y notarizada por Apple. Windows y Linux están disponibles para prueba y distribución inicial.",
     check_1:"Modo de solo lectura si la licencia vence", check_2:"Backups cifrados con passphrase del usuario", check_3:"Firma y notarización para macOS",
     faq_label:"Preguntas comunes", faq_title:"Claridad antes de instalar.",
     q1:"¿Dónde se guardan los datos?", a1:"En la computadora del usuario. La iglesia debe conservar backups cifrados y sus passphrases.",
     q2:"¿Qué pasa si vence la licencia?", a2:"La app permite ver, imprimir, exportar, respaldar y restaurar en modo de solo lectura.",
     q3:"¿Qué pasa si se pierde la contraseña?", a3:"Se requiere la clave de recuperación. No hay puertas traseras para entrar a los datos.",
-    q4:"¿Incluye Windows?", a4:"La versión macOS está lista para lanzamiento. Windows se publicará después de completar firma e instalación.",
+    q4:"¿Incluye Windows y Linux?", a4:"Sí. Hay instaladores para Windows x64 y paquetes Linux DEB, RPM y AppImage. Windows todavía no está firmado con certificado Authenticode.",
     footer_copy:"© 2026 MT Software. Todos los derechos reservados.", footer_privacy:"Política de privacidad", footer_support:"Soporte"
   },
   en: {
-    nav_features:"Features", nav_pricing:"Pricing", nav_faq:"FAQ", nav_cta:"Request license",
+    nav_features:"Features", nav_downloads:"Downloads", nav_pricing:"Pricing", nav_faq:"FAQ", nav_cta:"Request license",
     hero_label:"Desktop app for churches",
     hero_desc:"Treasury, donations, reports, local audit history, and encrypted backups for churches that need organized financial records without relying on a cloud account.",
     hero_buy:"Request annual license", hero_learn:"View features",
@@ -225,16 +276,24 @@ const T = {
     f6_title:"No backdoors", f6_desc:"Recovery depends on administrator-held keys. No one can bypass account security.",
     trust_title:"Church data stays on the church computer.",
     trust_desc:"Church Ledger is designed for local use. The church remains responsible for backups, passwords, recovery keys, and exported files.",
+    downloads_label:"Downloads", downloads_title:"Church Ledger 1.0.0 installers.",
+    downloads_sub:"Choose the installer for your system. The annual license is activated inside the app after installation.",
+    download_mac_title:"macOS Apple Silicon", download_mac_desc:"Signed and notarized DMG for Macs with Apple Silicon.", download_mac_cta:"Download DMG",
+    download_windows_title:"Windows 64-bit", download_windows_desc:"NSIS installer for Windows x64. This build is not yet signed with an Authenticode certificate.", download_windows_cta:"Download EXE",
+    download_linux_deb_title:"Linux DEB", download_linux_deb_desc:"Package for Ubuntu, Debian, and compatible distributions.", download_linux_deb_cta:"Download DEB",
+    download_linux_rpm_title:"Linux RPM", download_linux_rpm_desc:"Package for Fedora, RHEL, and compatible distributions.", download_linux_rpm_cta:"Download RPM",
+    download_linux_appimage_title:"Linux AppImage", download_linux_appimage_desc:"Portable file for Linux AMD64. Mark it executable before opening.", download_linux_appimage_cta:"Download AppImage",
+    downloads_note:"Verification: download the <a href=\"downloads/church-ledger/1.0.0/SHA256SUMS.txt\">SHA-256 checksums</a>. The Mac App Store version will be published by Apple when approved.",
     pricing_label:"Annual license", pricing_title:"Simple pricing for a serious start.",
     pricing_sub:"The annual license includes core features, security, reports, printing, export, and encrypted backups.",
     price_name:"Church Ledger Annual License", price_period:"/ year", price_note:"One annual license per church. Includes a 30-day local trial before activation.", price_cta:"Request license",
-    release_title:"Launch status", release_p1:"The current macOS version is Developer ID signed and Apple notarized. Windows will be prepared later with its signed installer.",
+    release_title:"Launch status", release_p1:"The current macOS version is Developer ID signed and Apple notarized. Windows and Linux are available for testing and initial distribution.",
     check_1:"Read-only mode if the license expires", check_2:"Encrypted backups with user passphrases", check_3:"macOS signing and notarization",
     faq_label:"Common questions", faq_title:"Clarity before installation.",
     q1:"Where is data stored?", a1:"On the user's computer. The church must keep encrypted backups and passphrases.",
     q2:"What happens when the license expires?", a2:"The app allows viewing, printing, exporting, backup, and restore in read-only mode.",
     q3:"What if the password is lost?", a3:"The recovery key is required. There are no backdoors into the data.",
-    q4:"Does it include Windows?", a4:"The macOS version is ready for launch. Windows will be published after signing and installer work is complete.",
+    q4:"Does it include Windows and Linux?", a4:"Yes. Installers are available for Windows x64 plus Linux DEB, RPM, and AppImage. Windows is not yet signed with an Authenticode certificate.",
     footer_copy:"© 2026 MT Software. All rights reserved.", footer_privacy:"Privacy Policy", footer_support:"Support"
   }
 };

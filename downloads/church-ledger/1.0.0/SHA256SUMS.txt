@@ -1,0 +1,5 @@
+09881c211c4cf2d39794d3ea9effdde38e2ddfbb06ce979ca53c248c862d5a7b  downloads/church-ledger/1.0.0/church-ledger-1.0.0-linux-amd64.AppImage
+08e0e5c2fe34c67299645c670ee8593d2d0bd90cbfca39622451c215291231da  downloads/church-ledger/1.0.0/church-ledger-1.0.0-linux-amd64.deb
+60e649af90d85cce2f1991e1a90f4de759287152dcc506b70483bed1141ec117  downloads/church-ledger/1.0.0/church-ledger-1.0.0-linux-x86_64.rpm
+e8d9446a8b12a9dc475f5fa011ce51c4b290dba05bbf3d9964b73ea82514afa9  downloads/church-ledger/1.0.0/church-ledger-1.0.0-macos-apple-silicon.dmg
+233ca481d192fe36934f25f8e1a95caca4eb1e50703b4fcdebd5135f0cc1da84  downloads/church-ledger/1.0.0/church-ledger-1.0.0-windows-x64-setup.exe
