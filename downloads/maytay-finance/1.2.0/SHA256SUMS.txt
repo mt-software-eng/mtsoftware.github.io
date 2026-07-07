@@ -1,0 +1,3 @@
+c99c2e089652c9a7671be7b0ea076eff7c22067d9dad6ac698c569ccc63d105b  downloads/maytay-finance/1.2.0/MayTay-Finance-Windows-1.2.0.exe
+e90ca10b2013428352f82500b89452beab6e3410fd758e93d76e664de35c2051  downloads/maytay-finance/1.2.0/MayTay-Finance-Linux-x86_64-1.2.0.AppImage
+e168c76c2c9af855376861ebdb8d657f0f8122ba3ed254b2f3e20275f5fcf508  downloads/maytay-finance/1.2.0/MayTay-Finance-Linux-x64-1.2.0.tar.gz
